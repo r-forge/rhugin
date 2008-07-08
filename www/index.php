@@ -33,19 +33,21 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <!-- get project title  -->
 <!-- own website starts here, the following may be changed as you like -->
 
-<?php if ($handle=fopen('http://'.$domain.'/export/projtitl.php?group_name='.$group_name,'r')){
-$contents = '';
-while (!feof($handle)) {
-	$contents .= fread($handle, 8192);
-}
-fclose($handle);
-echo $contents; } ?>
+<h1>The RHugin Package Homepage</h1>
 
-<!-- end of project description -->
+The RHugin package makes the C API to the Hugin Decision Engine accessible to R.
 
-<p> No content added. </p>
+<h2>Installation</h2>
 
-<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
+<p>
+The RHugin package requires a functional installation of Hugin Expert. If you have a licensed Hugin installation then you are probably good to go. Just make sure that the <code>HUGINHOME</code> is properly set<sup>*</sup> as described in the Hugin documentation. If you don't already have Hugin installed then you can obtain a trial version from <a href="http://www.hugin.com">www.hugin.com</a>. The trial version is limited but sufficient to explore the capabilities of the RHugin package.
+</p>
+
+<p>
+<sup>*</sup> The RHugin package automatically sets the <code>HUGINHOME</code> environment variable on MicroSoft Windows systems if Hugin is installed in <code>C:/Program Files/...</code>.
+</p>
+
+The RHugin package in presently in the alpha stages of development and is only available directly from the R-Forge repository. In the near future a stable version will be made available as a source package and as a binary package for the Windows platform. The source code can be obtained via subversion; directions may be found <a href="http://r-forge.r-project.org/scm/?group_id=209">here</a>.
 
 </body>
 </html>

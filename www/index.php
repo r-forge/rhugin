@@ -1,4 +1,3 @@
-
 <!-- This is the project specific website template -->
 <!-- It can be changed as liked or replaced by other content -->
 
@@ -29,25 +28,26 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <a href="/"><img src="<?php echo $themeroot; ?>/images/logo.png" border="0" alt="R-Forge Logo" /> </a> </td> </tr>
 </table>
 
-
 <!-- get project title  -->
 <!-- own website starts here, the following may be changed as you like -->
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package makes the C API to the Hugin Decision Engine accessible to R.
+The RHugin package provides an R API for the Hugin Decision Engine. Here is a link to the project <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
 <h2>Installation</h2>
 
 <p>
-The RHugin package requires a functional installation of Hugin Expert. If you have a licensed Hugin installation then you are probably good to go. Just make sure that the <code>HUGINHOME</code> is properly set<sup>*</sup> as described in the Hugin documentation. If you don't already have Hugin installed then you can obtain a trial version from <a href="http://www.hugin.com">www.hugin.com</a>. The trial version is limited but sufficient to explore the capabilities of the RHugin package.
+The package source can be obtained from the R-Forge Subversion repository by following the instructions given <a href="http://r-forge.r-project.org/scm/?group_id=209">here</a>. Additionally, a <a href="RHugin_0.3-1.zip">binary package</a> is available for Microsoft Windows Systems.
 </p>
 
 <p>
-<sup>*</sup> The RHugin package automatically sets the <code>HUGINHOME</code> environment variable on MicroSoft Windows systems if Hugin is installed in <code>C:/Program Files/...</code>.
+RHugin requires a functional installation of Hugin Expert. If you have a licensed Hugin installation then simply install the RHugin package and load it into your R session. Please note that the <code>HUGINHOME</code> environment variable must be set* as described in the Hugin documentation. If you don't already have Hugin installed then you can download a trial version from <a href="http://www.hugin.com">www.hugin.com</a>. The trial version is limited but sufficient to explore the capabilities of the RHugin package.
 </p>
 
-The RHugin package in presently in the alpha stages of development and is only available directly from the R-Forge repository. In the near future a stable version will be made available as a source package and as a binary package for the Windows platform. The source code can be obtained via subversion; directions may be found <a href="http://r-forge.r-project.org/scm/?group_id=209">here</a>.
+<p>
+*The RHugin package automatically sets the <code>HUGINHOME</code> environment variable on Microsoft Windows systems if Hugin is installed in <code>C://Program Files//Hugin Expert//Hugin Researcher 6.9</code>.
+</p>
 
 </body>
 </html>

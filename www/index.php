@@ -33,21 +33,45 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides an API for the Hugin Decision Engine. Here is a link to the project <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
+The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software and can be purchased from <a href="http://www.hugin.com">www.hugin.com</a>.  Initially, the intended audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
+<br><br>
+The RHugin package is compatible with the evaluation version of Hugin: Hugin Lite 6.9.
+<br><br>
+The project's source code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
 <h2>Installation</h2>
 
 <p>
-The package source can be obtained from the R-Forge Subversion repository by following the instructions given <a href="http://r-forge.r-project.org/scm/?group_id=209">here</a>. Additionally, a <a href="RHugin_0.3-1.zip">binary package</a> is available for Microsoft Windows Systems.
+RHugin requires a functional installation of Hugin Expert. If you have a licensed Hugin installation then simply install the RHugin package and load it into your R session. Please note that the <code>HUGINHOME</code> environment variable must be set as described in the Hugin documentation. If you don't already have Hugin installed then you can download an evaluation version from <a href="http://www.hugin.com">www.hugin.com</a>. The evaluation version is limited but sufficient to explore the capabilities of the RHugin package.
 </p>
 
-<p>
-RHugin requires a functional installation of Hugin Expert. If you have a licensed Hugin installation then simply install the RHugin package and load it into your R session. Please note that the <code>HUGINHOME</code> environment variable must be set* as described in the Hugin documentation. If you don't already have Hugin installed then you can download a trial version from <a href="http://www.hugin.com">www.hugin.com</a>. The trial version is limited but sufficient to explore the capabilities of the RHugin package.
-</p>
+<h4>Non-Windows</h4>
 
 <p>
-*The RHugin package automatically sets the <code>HUGINHOME</code> environment variable on Microsoft Windows systems if Hugin is installed in <code>C://Program Files//Hugin Expert//Hugin Researcher 6.9</code>.
+Users of Macintosh and *NIX systems can now install the package using the <code>install.packages</code> function in R.
 </p>
+
+<pre>
+     install.packages("RHugin", repos = "http://R-Forge.R-project.org")
+</pre>
+
+<p>
+If the Rgraphviz package is available then RHugin will be able to automatically draw Hugin domains as well as position nodes in hkb files. If possible install this package too. If Rgraphviz is not available the rest of the RHugin package will function normally.
+</p>
+
+<h4>Windows</h4>
+
+<p>
+Building the package on Windows is quite difficult so presently only binary packages are provided.
+</p>
+
+<ul>
+  <li> <a href="binary/Windows/RHugin_0.3-1.zip">RHugin_0.3-1.zip</a> (2008-08-22)
+</ul>
+
+Download the most recent version and install it using the "Install package(s) from local zip files..." item from the R Packages menu.
+
+<br>
 
 <h2>Quick Introduction</h2>
 

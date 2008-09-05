@@ -67,6 +67,8 @@ Building the package on Windows is quite difficult so presently only binary pack
 
 <ul>
   <li> <a href="binary/Windows/RHugin_0.3-1.zip">RHugin_0.3-1.zip</a> (2008-08-22)
+  <li> <a href="binary/Windows/RHugin_0.4-2.zip">RHugin_0.4-2.zip</a> (2008-09-01)
+  <li> <a href="binary/Windows/RHugin_0.4-3.zip">RHugin_0.4-3.zip</a> (2008-09-05)
 </ul>
 
 Download the most recent version and install it using the "Install package(s) from local zip files..." item from the R Packages menu.

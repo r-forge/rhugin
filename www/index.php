@@ -55,14 +55,10 @@ Users of Macintosh and *NIX systems can now install the package using the <code>
      install.packages("RHugin", repos = "http://R-Forge.R-project.org")
 </pre>
 
-<p>
-If the Rgraphviz package is available then RHugin will be able to automatically draw Hugin domains as well as position nodes in hkb files. If possible install this package too. If Rgraphviz is not available the rest of the RHugin package will function normally.
-</p>
-
 <h4>Windows</h4>
 
 <p>
-Building the package on Windows is quite difficult so presently only binary packages are provided.
+Building the package on Windows is quite difficult so binary packages are provided.
 </p>
 
 <ul>
@@ -71,7 +67,20 @@ Building the package on Windows is quite difficult so presently only binary pack
   <li> <a href="binary/Windows/RHugin_0.4-3.zip">RHugin_0.4-3.zip</a> (2008-09-05)
 </ul>
 
+<p>
 Download the most recent version and install it using the "Install package(s) from local zip files..." item from the R Packages menu.
+</p>
+
+<h4>Rgraphviz</h4>
+
+<p>
+If the Rgraphviz package is available then RHugin will be able to automatically draw Hugin domains as well as position nodes in hkb and net files. If possible install this package too. If Rgraphviz is not available the rest of the RHugin package will function normally.
+</p>
+
+<p>
+The Rgraphviz package is available from <a href="http://www.bioconductor.org">bioconductor</a> and has an external dependency on <a href="http://www.graphviz.org">graphviz</a>.  A binary release of graphviz for Windows can be downloaded here: <a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.2.exe">graphviz-2.20.2.exe</a>.  The Windows binary for Rgraphviz provided by bioconductor is currently broken so I am temporarily hosting a working Windows binary: <a href="binary/Windows/Rgraphviz_1.18.1.zip">Rgraphviz_1.18.1.zip</a> (built for R 2.7.2 and graphviz 2.20.2).
+</p>
+
 
 <br>
 

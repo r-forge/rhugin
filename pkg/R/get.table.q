@@ -14,18 +14,22 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
   RHugin.handle.error()
   table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
-  x <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
+  Freq <- .Call("RHugin_table_get_data", table.ptr, PACKAGE = "RHugin")
   RHugin.handle.error()
 
-  attributes(x) <- list(dim = d, dimnames = states, class = "table")
   switch(class,
-    "data.frame" = {
-      x <- as.data.frame(x, stringsAsFactors = TRUE)
-      row.names(x) <- NULL
-      x
+    "data.frame" = cbind(expand.grid(states), Freq = Freq),
+
+    "table" = {
+      attributes(Freq) <- list(dim = d, dimnames = states, class = "table")
+      Freq
     },
-    "table" = x,
-    "ftable" = ftable(x, row.vars = 1:length(d)))  
+
+    "ftable" = {
+      attributes(Freq) <- list(dim = d, dimnames = states, class = "table")
+      ftable(Freq, row.vars = 1:length(d))
+    }
+  )
 }
 
 

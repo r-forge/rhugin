@@ -13,7 +13,7 @@ set.table(domain, node, data)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of a node in \code{domain}.}
+  \item{node}{a character string specifying the name of a node in \code{domain}.}
   \item{data}{a data frame (see details).}
 }
 
@@ -25,13 +25,11 @@ The data frame containing the table must match Hugin's internal representation o
 a \code{NULL} value is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{get.table.nodes}},
-  \code{\link{get.table}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_table_set_data} and \code{h_node_touch_table}.
 }
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
 # Create an RHugin domain

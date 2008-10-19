@@ -13,26 +13,22 @@ get.belief(domain, node, states = NULL)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node}{a character vector of length one containing the name of the node from which the beliefs are to be retrieved.}
-  \item{states}{an optional character vector specifying the states in \sQuote{node} for which beliefs are to be retrieved.  If \code{NULL} then beliefs are retrieved for all states.}
+  \item{node}{a character string specifying the name of the node from which the beliefs are to be retrieved.}
+  \item{states}{an optional vector specifying the states of \sQuote{node} for which beliefs are to be retrieved.  If \code{NULL} then beliefs are retrieved for all states.}
 }
 
 \value{
 a numeric vector containing the beliefs in the specified states.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{compile}},
-  \code{\link{set.finding}},
-  \code{\link{propagate}},
-  \code{\link{retract}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_get_belief}.
 }
 
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
+
 \examples{
-demo("buildAppleTreeNetwork")
+RHExample("buildAppleTreeNetwork")
 
 # Compile the domain
 compile(AppleTree)

@@ -1,4 +1,5 @@
-get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
+get.table <- function(domain, node, class = c("data.frame", "table", "ftable",
+                      "numeric"))
 {
   RHugin.check.args(domain, node, character(0), "get.table")
   class <- match.arg(class)
@@ -9,7 +10,7 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
   states <- rev(states)
   d <- sapply(states, length)
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
   table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")
@@ -27,8 +28,11 @@ get.table <- function(domain, node, class = c("data.frame", "table", "ftable"))
 
     "ftable" = {
       attributes(Freq) <- list(dim = d, dimnames = states, class = "table")
-      ftable(Freq, row.vars = 1:length(d))
-    }
+      n <- length(table.nodes)
+      ftable(Freq, row.vars = table.nodes[n], col.vars = table.nodes[-n])
+    },
+
+    "numeric" = Freq
   )
 }
 

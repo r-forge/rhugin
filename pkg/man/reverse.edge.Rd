@@ -13,8 +13,8 @@ reverse.edge(domain, node1, node2)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{node1}{a character vector of length one giving the name of the node in \code{domain} at one end of the edge.}
-  \item{node2}{a character vector of length one giving the name of the node in \code{domain} at the other end of the edge.}
+  \item{node1}{a character string specifying the name of the node in \code{domain} at one end of the edge.}
+  \item{node2}{a character string specifying the name of the node in \code{domain} at the other end of the edge.}
 }
 
 \details{
@@ -27,13 +27,11 @@ The operation is not performed if the reversal of the edge would create a direct
 a \code{NULL} value is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{add.edge}},
-  \code{\link{get.edges}},
-  \code{\link{delete.edge}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_reverse_edge}.
 }
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
 # Create an RHugin domain

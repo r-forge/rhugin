@@ -2,20 +2,44 @@ set.table <- function(domain, node, data)
 {
   RHugin.check.args(domain, node, character(0), "set.table")
 
-  Freq <- as.numeric(data[[length(data)]])
+  Freq <- switch(class(data),
+    "data.frame" = {
+      Freq <- as.numeric(data[[length(data)]])
 
-  table.nodes <- rev(get.table.nodes(domain, node))
-  states <- lapply(table.nodes, function(u) get.states(domain, u))
-  names(states) <- table.nodes
+      table.nodes <- rev(get.table.nodes(domain, node))
+      states <- lapply(table.nodes, function(u) get.states(domain, u))
+      names(states) <- table.nodes
 
-  indices <- as.list(data[table.nodes])
-  for(i in table.nodes)
-    indices[[i]] <- factor(indices[[i]], levels = states[[i]])
+      indices <- as.list(data[table.nodes])
+      for(i in table.nodes)
+        indices[[i]] <- factor(indices[[i]], levels = states[[i]])
 
-  Freq <- as.vector(tapply(Freq, indices, sum))
-  Freq[is.na(Freq)] <- 0
+      Freq <- as.vector(tapply(Freq, indices, sum))
+      Freq[is.na(Freq)] <- 0
+      Freq
+    },
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+    "table" = {
+      table.nodes <- get.table.nodes(domain, node)
+      states <- lapply(table.nodes, function(u) get.states(domain, u))
+      names(states) <- table.nodes
+      states <- rev(states)
+
+      if(!isTRUE(all.equal(dimnames(data), states)))
+        stop("table dimnames do not match node states")
+
+      as.vector(data)
+    },
+
+    "numeric" = data,
+
+    NULL
+  )
+
+  if(is.null(Freq))
+    stop("could not interpret ", deparse(substitute(data)), " as table")
+
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
   RHugin.handle.error()
   table.ptr <- .Call("RHugin_node_get_table", node.ptr, PACKAGE = "RHugin")

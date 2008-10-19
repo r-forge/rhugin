@@ -13,9 +13,9 @@ switch.parent(domain, child, parent, new.parent)
 
 \arguments{
   \item{domain}{an RHugin domain object.}
-  \item{child}{a character vector of length one containing the name of a child node in \code{domain}.}
-  \item{parent}{a character vector of length one containing the name of a current parent node of \code{child}.}
-  \item{new.parent}{a character vector of length one containing the name of a node in \code{domain} that is to be the new parent of \code{child}.}
+  \item{child}{a character string specifying the name of a child node in \code{domain}.}
+  \item{parent}{a character string specifying the name of a current parent node of \code{child}.}
+  \item{new.parent}{a character string specifying the name of a node in \code{domain} that is to be the new parent of \code{child}.}
 }
 
 \details{
@@ -26,13 +26,11 @@ Substitute \code{new.parent} for \code{parent} as the parent of \code{child} whi
 a \code{NULL} value is invisibly returned.
 }
 
-\author{Kjell Konis \email{kjell.konis@epfl.ch}}
-
-\seealso{
-  \code{\link{add.edge}},
-  \code{\link{get.edges}},
-  \code{\link{delete.edge}}.
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_node_switch_parent}.
 }
+
+\author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \examples{
 # Create an RHugin domain

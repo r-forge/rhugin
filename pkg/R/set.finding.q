@@ -1,6 +1,15 @@
-set.finding <- function(domain, node, finding)
+set.finding <- function(domain, node, finding, case = NULL)
 {
-  RHugin.check.args(domain, node, character(0), "enter.finding")
+  if(!is.null(case)) {
+    RHugin.check.args(domain, character(0), character(0), "set.finding")
+
+    status <- .Call("RHugin_domain_enter_case", domain, as.integer(case - 1),
+                     PACKAGE = "RHugin")
+    RHugin.handle.error(status)
+    return(invisible(NULL))
+  }
+
+  RHugin.check.args(domain, node, character(0), "set.finding")
 
   node.summary <- summary(domain, node)[[node]]
   category <- node.summary$category
@@ -10,12 +19,17 @@ set.finding <- function(domain, node, finding)
   if(kind != "discrete" || (category != "chance" && category != "decision"))
     stop(dQuote(node), " is not a discrete chance or decision node")
 
-  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain$pointer, node,
+  node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
 
   if(length(finding) == 1) {
-    state.index <- .Call("RHugin_node_get_state_index_from_label", node.ptr,
-                          as.character(finding), PACKAGE = "RHugin")
+    state.index <- switch(summary(domain, node)[[node]]$subtype,
+      "boolean" = ifelse(as.logical(finding), 1, 0),
+      "labeled" = .Call("RHugin_node_get_state_index_from_label", node.ptr,
+                         as.character(finding), PACKAGE = "RHugin"),
+      "numbered" = .Call("RHugin_node_get_state_index_from_value", node.ptr,
+                          as.double(finding), PACKAGE = "RHugin"),
+      -1)
 
     if(state.index < 0)
       stop("unable to select state ", dQuote(finding), " in node ",

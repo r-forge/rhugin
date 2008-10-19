@@ -16,23 +16,25 @@ initialize.domain(domain)
 }
 
 \details{
-If an up-to-date memory backup exists (when \code{save = TRUE} in \code{\link{propagate}}) then the initialization is accomplished simply by loading the tables from the backup.  Otherwise, the initial values are recomputed from the conditional probability and utility potentials.  This function erases all previously entered evidence.
+If an up-to-date memory backup exists (i.e. if \code{save = TRUE} was used in the most recent compilation operation) then the initialization is accomplished simply by loading the tables from the memory backup.  Otherwise, the initial values are recomputed from the conditional probability and utility potentials.  This function erases all previously entered evidence.
 }
 
 \value{
 a \code{NULL} value is invisibly returned.
 }
 
+\references{
+HUGIN API Reference Manual \url{http://www.hugin.com/developer/documentation/API_Manuals/}: \code{h_domain_initialize}.
+}
+
 \author{Kjell Konis \email{kjell.konis@epfl.ch}}
 
 \seealso{
-  \code{\link{hugin.domain}},
-  \code{\link{set.finding}},
-  \code{\link{retract}}.
+  \code{\link{compile}}.
 }
 
 \examples{
-demo("buildAppleTreeNetwork")
+RHExample("buildAppleTreeNetwork")
 
 # Compile the domain
 compile(AppleTree)

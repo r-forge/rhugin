@@ -35,7 +35,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software and can be purchased from <a href="http://www.hugin.com">www.hugin.com</a>.  Initially, the intended audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
 <br><br>
-The RHugin package is compatible with the evaluation version of Hugin: Hugin Lite 6.9.
+The RHugin package is compatible with the evaluation version of Hugin: Hugin Lite.
 <br><br>
 The project's source code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
@@ -48,7 +48,7 @@ RHugin requires a functional installation of Hugin Expert. If you have a license
 <h4>Non-Windows</h4>
 
 <p>
-Users of Macintosh and *NIX systems can now install the package using the <code>install.packages</code> function in R.
+UNIX and Linux systems can install the package using the <code>install.packages</code> function in R.
 </p>
 
 <pre>
@@ -66,7 +66,8 @@ Building the package on Windows is quite difficult so binary packages are provid
   <li> <a href="binary/Windows/RHugin_0.4-2.zip">RHugin_0.4-2.zip</a> (2008-09-01)
   <li> <a href="binary/Windows/RHugin_0.4-3.zip">RHugin_0.4-3.zip</a> (2008-09-05)
   <li> <a href="binary/Windows/RHugin_0.4-5.zip">RHugin_0.4-5.zip</a> (2008-09-28)
-  <li> <a href="binary/Windows/RHugin_0.4-6.zip">RHugin_0.4-6.zip</a> (built for R 2.7.2 and Hugin Researcher 7.0 : 2008-10-15)
+  <li> <a href="binary/Windows/RHugin_0.4-6.zip">RHugin_0.4-6.zip</a> (requires R 2.7.2 and Hugin Researcher 7.0 : 2008-10-15)
+  <li> <a href="binary/Windows/RHugin_0.4-9.zip">RHugin_0.4-9.zip</a> (requires R 2.7.2 and Hugin Researcher 7.0 : 2008-10-22)
 </ul>
 
 <p>

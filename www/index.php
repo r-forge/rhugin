@@ -67,7 +67,7 @@ Building the package on Windows is quite difficult so binary packages are provid
   <li> <a href="binary/Windows/RHugin_0.4-3.zip">RHugin_0.4-3.zip</a> (2008-09-05)
   <li> <a href="binary/Windows/RHugin_0.4-5.zip">RHugin_0.4-5.zip</a> (2008-09-28)
   <li> <a href="binary/Windows/RHugin_0.4-6.zip">RHugin_0.4-6.zip</a> (requires R 2.7.2 and Hugin Researcher 7.0 : 2008-10-15)
-  <li> <a href="binary/Windows/RHugin_0.4-9.zip">RHugin_0.4-9.zip</a> (requires R 2.7.2 and Hugin Researcher 7.0 : 2008-10-22)
+  <li> <a href="binary/Windows/RHugin_0.4-10.zip">RHugin_0.4-10.zip</a> (requires R 2.7.2 and Hugin Researcher/Lite 7.0 : 2008-10-21)
 </ul>
 
 <p>

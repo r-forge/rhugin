@@ -9,6 +9,108 @@ SEXP RHugin_model_tag;
 SEXP RHugin_junction_tree_tag;
 SEXP RHugin_clique_tag;
 
+SEXP RHUGIN_ERROR;
+
+SEXP RHUGIN_CHANCE;
+SEXP RHUGIN_UTILITY;
+SEXP RHUGIN_DECISION;
+SEXP RHUGIN_INSTANCE;
+
+SEXP RHUGIN_DISCRETE;
+SEXP RHUGIN_CONTINUOUS;
+
+SEXP RHUGIN_LABELED;
+SEXP RHUGIN_BOOLEAN;
+SEXP RHUGIN_NUMBERED;
+SEXP RHUGIN_INTERVAL;
+
+SEXP RHUGIN_OPERATOR_ADD;
+SEXP RHUGIN_OPERATOR_SUBTRACT;
+SEXP RHUGIN_OPERATOR_MULTIPLY;
+SEXP RHUGIN_OPERATOR_DIVIDE;
+SEXP RHUGIN_OPERATOR_POWER;
+
+SEXP RHUGIN_OPERATOR_NEGATE;
+
+SEXP RHUGIN_OPERATOR_EQUALS;
+SEXP RHUGIN_OPERATOR_LESS_THAN;
+SEXP RHUGIN_OPERATOR_GREATER_THAN;
+SEXP RHUGIN_OPERATOR_NOT_EQUALS;
+SEXP RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS;
+SEXP RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS;
+
+SEXP RHUGIN_OPERATOR_NORMAL;
+SEXP RHUGIN_OPERATOR_LOGNORMAL;
+SEXP RHUGIN_OPERATOR_BETA;
+SEXP RHUGIN_OPERATOR_GAMMA;
+SEXP RHUGIN_OPERATOR_EXPONENTIAL;
+SEXP RHUGIN_OPERATOR_WEIBULL;
+SEXP RHUGIN_OPERATOR_UNIFORM;
+SEXP RHUGIN_OPERATOR_TRIANGULAR;
+SEXP RHUGIN_OPERATOR_PERT;
+
+SEXP RHUGIN_OPERATOR_BINOMIAL;
+SEXP RHUGIN_OPERATOR_POISSON;
+SEXP RHUGIN_OPERATOR_NEGATIVEBINOMIAL;
+SEXP RHUGIN_OPERATOR_GEOMETRIC;
+SEXP RHUGIN_OPERATOR_DISTRIBUTION;
+SEXP RHUGIN_OPERATOR_NOISYOR;
+
+SEXP RHUGIN_OPERATOR_TRUNCATE;
+
+SEXP RHUGIN_OPERATOR_MIN;
+SEXP RHUGIN_OPERATOR_MAX;
+
+SEXP RHUGIN_OPERATOR_LOG;
+SEXP RHUGIN_OPERATOR_LOG2;
+SEXP RHUGIN_OPERATOR_LOG10;
+SEXP RHUGIN_OPERATOR_EXP;
+SEXP RHUGIN_OPERATOR_SIN;
+SEXP RHUGIN_OPERATOR_COS;
+SEXP RHUGIN_OPERATOR_TAN;
+SEXP RHUGIN_OPERATOR_SINH;
+SEXP RHUGIN_OPERATOR_COSH;
+SEXP RHUGIN_OPERATOR_TANH;
+SEXP RHUGIN_OPERATOR_SQRT;
+SEXP RHUGIN_OPERATOR_ABS;
+
+SEXP RHUGIN_OPERATOR_FLOOR;
+SEXP RHUGIN_OPERATOR_CEIL;
+
+SEXP RHUGIN_OPERATOR_MOD;
+
+SEXP RHUGIN_OPERATOR_IF;
+SEXP RHUGIN_OPERATOR_AND;
+SEXP RHUGIN_OPERATOR_OR;
+SEXP RHUGIN_OPERATOR_NOT;
+
+SEXP RHUGIN_OPERATOR_LABEL;
+SEXP RHUGIN_OPERATOR_NUMBER;
+SEXP RHUGIN_OPERATOR_BOOLEAN;
+SEXP RHUGIN_OPERATOR_NODE;
+
+SEXP RHUGIN_OPERATOR_ERROR;
+
+SEXP RHUGIN_TM_CLIQUE_SIZE;
+SEXP RHUGIN_TM_CLIQUE_WEIGHT;
+SEXP RHUGIN_TM_FILL_IN_SIZE;
+SEXP RHUGIN_TM_FILL_IN_WEIGHT;
+SEXP RHUGIN_TM_TOTAL_WEIGHT;
+
+SEXP RHUGIN_EQUILIBRIUM_SUM;
+SEXP RHUGIN_EQUILIBRIUM_MAX;
+
+SEXP RHUGIN_MODE_NORMAL;
+SEXP RHUGIN_MODE_FAST_RETRACTION;
+
+SEXP RHUGIN_CONSTRAINT_NONE;
+SEXP RHUGIN_CONSTRAINT_EDGE_REQUIRED;
+SEXP RHUGIN_CONSTRAINT_EDGE_FORBIDDEN;
+SEXP RHUGIN_CONSTRAINT_FORWARD_EDGE_REQUIRED;
+SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_REQUIRED;
+SEXP RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN;
+SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN;
+
 
 h_domain_t domainPointerFromSEXP(SEXP Sdomain)
 {
@@ -102,6 +204,205 @@ void RHuginParseNETError(h_location_t line, h_string_t message, void *data)
 
 void R_init_RHugin(DllInfo *info)
 {
+  RHugin_domain_tag = install("RHUGIN_DOMAIN_TAG");
+  R_PreserveObject(RHugin_domain_tag);
+  RHugin_node_tag = install("RHUGIN_NODE_TAG");
+  R_PreserveObject(RHugin_node_tag);
+  RHugin_table_tag = install("RHUGIN_TABLE_TAG");
+  R_PreserveObject(RHugin_table_tag);
+  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
+  R_PreserveObject(RHugin_expression_tag);
+  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
+  R_PreserveObject(RHugin_model_tag);
+  RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
+  R_PreserveObject(RHugin_junction_tree_tag);
+  RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
+  R_PreserveObject(RHugin_clique_tag);
+
+  RHUGIN_ERROR = mkChar("error");
+  R_PreserveObject(RHUGIN_ERROR);
+
+  RHUGIN_CHANCE = mkChar("chance");
+  R_PreserveObject(RHUGIN_CHANCE);
+  RHUGIN_UTILITY = mkChar("utility");
+  R_PreserveObject(RHUGIN_UTILITY);
+  RHUGIN_DECISION = mkChar("decision");
+  R_PreserveObject(RHUGIN_DECISION);
+  RHUGIN_INSTANCE = mkChar("instance");
+  R_PreserveObject(RHUGIN_INSTANCE);
+
+  RHUGIN_DISCRETE = mkChar("discrete");
+  R_PreserveObject(RHUGIN_DISCRETE);
+  RHUGIN_CONTINUOUS = mkChar("continuous");
+  R_PreserveObject(RHUGIN_CONTINUOUS);
+
+  RHUGIN_LABELED = mkChar("labeled");
+  R_PreserveObject(RHUGIN_LABELED);
+  RHUGIN_BOOLEAN = mkChar("boolean");
+  R_PreserveObject(RHUGIN_BOOLEAN);
+  RHUGIN_NUMBERED = mkChar("numbered");
+  R_PreserveObject(RHUGIN_NUMBERED);
+  RHUGIN_INTERVAL = mkChar("interval");
+  R_PreserveObject(RHUGIN_INTERVAL);
+
+  RHUGIN_OPERATOR_ADD = mkChar("add");
+  R_PreserveObject(RHUGIN_OPERATOR_ADD);
+  RHUGIN_OPERATOR_SUBTRACT = mkChar("subtract");
+  R_PreserveObject(RHUGIN_OPERATOR_SUBTRACT);
+  RHUGIN_OPERATOR_MULTIPLY = mkChar("multiply");
+  R_PreserveObject(RHUGIN_OPERATOR_MULTIPLY);
+  RHUGIN_OPERATOR_DIVIDE = mkChar("divide");
+  R_PreserveObject(RHUGIN_OPERATOR_DIVIDE);
+  RHUGIN_OPERATOR_POWER = mkChar("power");
+  R_PreserveObject(RHUGIN_OPERATOR_POWER);
+
+  RHUGIN_OPERATOR_NEGATE = mkChar("negate");
+  R_PreserveObject(RHUGIN_OPERATOR_NEGATE);
+
+  RHUGIN_OPERATOR_EQUALS = mkChar("equals");
+  R_PreserveObject(RHUGIN_OPERATOR_EQUALS);
+  RHUGIN_OPERATOR_LESS_THAN = mkChar("less_than");
+  R_PreserveObject(RHUGIN_OPERATOR_LESS_THAN);
+  RHUGIN_OPERATOR_GREATER_THAN = mkChar("greater_than");
+  R_PreserveObject(RHUGIN_OPERATOR_GREATER_THAN);
+  RHUGIN_OPERATOR_NOT_EQUALS = mkChar("not_equals");
+  R_PreserveObject(RHUGIN_OPERATOR_NOT_EQUALS);
+  RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS = mkChar("less_than_or_equals");
+  R_PreserveObject(RHUGIN_OPERATOR_LESS_THAN_OR_EQUALS);
+  RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS = mkChar("greater_than_or_equals");
+  R_PreserveObject(RHUGIN_OPERATOR_GREATER_THAN_OR_EQUALS);
+
+  RHUGIN_OPERATOR_NORMAL = mkChar("Normal");
+  R_PreserveObject(RHUGIN_OPERATOR_NORMAL);
+  RHUGIN_OPERATOR_LOGNORMAL = mkChar("LogNormal");
+  R_PreserveObject(RHUGIN_OPERATOR_LOGNORMAL);
+  RHUGIN_OPERATOR_BETA = mkChar("Beta");
+  R_PreserveObject(RHUGIN_OPERATOR_BETA);
+  RHUGIN_OPERATOR_GAMMA = mkChar("Gamma");
+  R_PreserveObject(RHUGIN_OPERATOR_GAMMA);
+  RHUGIN_OPERATOR_EXPONENTIAL = mkChar("Exponential");
+  R_PreserveObject(RHUGIN_OPERATOR_EXPONENTIAL);
+  RHUGIN_OPERATOR_WEIBULL = mkChar("Weibull");
+  R_PreserveObject(RHUGIN_OPERATOR_WEIBULL);
+  RHUGIN_OPERATOR_UNIFORM = mkChar("Uniform");
+  R_PreserveObject(RHUGIN_OPERATOR_UNIFORM);
+  RHUGIN_OPERATOR_TRIANGULAR = mkChar("Triangular");
+  R_PreserveObject(RHUGIN_OPERATOR_TRIANGULAR);
+  RHUGIN_OPERATOR_PERT = mkChar("PERT");
+  R_PreserveObject(RHUGIN_OPERATOR_PERT);
+
+  RHUGIN_OPERATOR_BINOMIAL = mkChar("Binomail");
+  R_PreserveObject(RHUGIN_OPERATOR_BINOMIAL);
+  RHUGIN_OPERATOR_POISSON = mkChar("Poisson");
+  R_PreserveObject(RHUGIN_OPERATOR_POISSON);
+  RHUGIN_OPERATOR_NEGATIVEBINOMIAL = mkChar("NegativeBinomial");
+  R_PreserveObject(RHUGIN_OPERATOR_NEGATIVEBINOMIAL);
+  RHUGIN_OPERATOR_GEOMETRIC = mkChar("Geometric");
+  R_PreserveObject(RHUGIN_OPERATOR_GEOMETRIC);
+  RHUGIN_OPERATOR_DISTRIBUTION = mkChar("Distribution");
+  R_PreserveObject(RHUGIN_OPERATOR_DISTRIBUTION);
+  RHUGIN_OPERATOR_NOISYOR = mkChar("NoisyOR");
+  R_PreserveObject(RHUGIN_OPERATOR_NOISYOR);
+
+  RHUGIN_OPERATOR_TRUNCATE = mkChar("truncate");
+  R_PreserveObject(RHUGIN_OPERATOR_TRUNCATE);
+
+  RHUGIN_OPERATOR_MIN = mkChar("min");
+  R_PreserveObject(RHUGIN_OPERATOR_MIN);
+  RHUGIN_OPERATOR_MAX = mkChar("max");
+  R_PreserveObject(RHUGIN_OPERATOR_MAX);
+
+  RHUGIN_OPERATOR_LOG = mkChar("log");
+  R_PreserveObject(RHUGIN_OPERATOR_LOG);
+  RHUGIN_OPERATOR_LOG2 = mkChar("log2");
+  R_PreserveObject(RHUGIN_OPERATOR_LOG2);
+  RHUGIN_OPERATOR_LOG10 = mkChar("log10");
+  R_PreserveObject(RHUGIN_OPERATOR_LOG10);
+  RHUGIN_OPERATOR_EXP = mkChar("exp");
+  R_PreserveObject(RHUGIN_OPERATOR_EXP);
+  RHUGIN_OPERATOR_SIN = mkChar("sin");
+  R_PreserveObject(RHUGIN_OPERATOR_SIN);
+  RHUGIN_OPERATOR_COS = mkChar("cos");
+  R_PreserveObject(RHUGIN_OPERATOR_COS);
+  RHUGIN_OPERATOR_TAN = mkChar("tan");
+  R_PreserveObject(RHUGIN_OPERATOR_TAN);
+  RHUGIN_OPERATOR_SINH = mkChar("sinh");
+  R_PreserveObject(RHUGIN_OPERATOR_SINH);
+  RHUGIN_OPERATOR_COSH = mkChar("cosh");
+  R_PreserveObject(RHUGIN_OPERATOR_COSH);
+  RHUGIN_OPERATOR_TANH = mkChar("tanh");
+  R_PreserveObject(RHUGIN_OPERATOR_TANH);
+  RHUGIN_OPERATOR_SQRT = mkChar("sqrt");
+  R_PreserveObject(RHUGIN_OPERATOR_SQRT);
+  RHUGIN_OPERATOR_ABS = mkChar("abs");
+  R_PreserveObject(RHUGIN_OPERATOR_ABS);
+
+  RHUGIN_OPERATOR_FLOOR = mkChar("floor");
+  R_PreserveObject(RHUGIN_OPERATOR_FLOOR);
+  RHUGIN_OPERATOR_CEIL = mkChar("ceil");
+  R_PreserveObject(RHUGIN_OPERATOR_CEIL);
+
+  RHUGIN_OPERATOR_MOD = mkChar("mod");
+  R_PreserveObject(RHUGIN_OPERATOR_MOD);
+
+  RHUGIN_OPERATOR_IF = mkChar("if");
+  R_PreserveObject(RHUGIN_OPERATOR_IF);
+  RHUGIN_OPERATOR_AND = mkChar("and");
+  R_PreserveObject(RHUGIN_OPERATOR_AND);
+  RHUGIN_OPERATOR_OR = mkChar("or");
+  R_PreserveObject(RHUGIN_OPERATOR_OR);
+  RHUGIN_OPERATOR_NOT = mkChar("not");
+  R_PreserveObject(RHUGIN_OPERATOR_NOT);
+
+  RHUGIN_OPERATOR_LABEL = mkChar("label");
+  R_PreserveObject(RHUGIN_OPERATOR_LABEL);
+  RHUGIN_OPERATOR_NUMBER = mkChar("number");
+  R_PreserveObject(RHUGIN_OPERATOR_NUMBER);
+  RHUGIN_OPERATOR_BOOLEAN = mkChar("boolean");
+  R_PreserveObject(RHUGIN_OPERATOR_BOOLEAN);
+  RHUGIN_OPERATOR_NODE = mkChar("node");
+  R_PreserveObject(RHUGIN_OPERATOR_NODE);
+
+  RHUGIN_OPERATOR_NODE = mkChar("error");
+  R_PreserveObject(RHUGIN_OPERATOR_ERROR);
+
+  RHUGIN_TM_CLIQUE_SIZE = mkChar("clique_size");
+  R_PreserveObject(RHUGIN_TM_CLIQUE_SIZE);
+  RHUGIN_TM_CLIQUE_WEIGHT = mkChar("clique_weight");
+  R_PreserveObject(RHUGIN_TM_CLIQUE_WEIGHT);
+  RHUGIN_TM_FILL_IN_SIZE = mkChar("fill_in_size");
+  R_PreserveObject(RHUGIN_TM_FILL_IN_SIZE);
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("fill_in_weight");
+  R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("total_weight");
+  R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
+
+  RHUGIN_EQUILIBRIUM_SUM = mkChar("sum");
+  R_PreserveObject(RHUGIN_EQUILIBRIUM_SUM);
+  RHUGIN_EQUILIBRIUM_MAX = mkChar("max");
+  R_PreserveObject(RHUGIN_EQUILIBRIUM_MAX);
+
+  RHUGIN_MODE_NORMAL = mkChar("normal");
+  R_PreserveObject(RHUGIN_MODE_NORMAL);
+  RHUGIN_MODE_FAST_RETRACTION = mkChar("fast");
+  R_PreserveObject(RHUGIN_MODE_FAST_RETRACTION);
+
+  RHUGIN_CONSTRAINT_NONE = mkChar("none");
+  R_PreserveObject(RHUGIN_CONSTRAINT_NONE);
+  RHUGIN_CONSTRAINT_EDGE_REQUIRED = mkChar("edge_required");
+  R_PreserveObject(RHUGIN_CONSTRAINT_EDGE_REQUIRED);
+  RHUGIN_CONSTRAINT_EDGE_FORBIDDEN = mkChar("edge_forbidden");
+  R_PreserveObject(RHUGIN_CONSTRAINT_EDGE_FORBIDDEN);
+  RHUGIN_CONSTRAINT_FORWARD_EDGE_REQUIRED = mkChar("forward_edge_required");
+  R_PreserveObject(RHUGIN_CONSTRAINT_FORWARD_EDGE_REQUIRED);
+  RHUGIN_CONSTRAINT_BACKWARD_EDGE_REQUIRED = mkChar("backward_edge_required");
+  R_PreserveObject(RHUGIN_CONSTRAINT_BACKWARD_EDGE_REQUIRED);
+  RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN = mkChar("forward_edge_forbidden");
+  R_PreserveObject(RHUGIN_CONSTRAINT_FORWARD_EDGE_FORBIDDEN);
+  RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN = mkChar("backward_edge_forbiddden");
+  R_PreserveObject(RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN);
+
+
   R_CallMethodDef dotCallMethods[] = {
     {"RHugin_error_code", (DL_FUNC) RHugin_error_code, 0},
     {"RHugin_error_name", (DL_FUNC) RHugin_error_name, 1},
@@ -265,6 +566,9 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_normal_deviate", (DL_FUNC) RHugin_domain_get_normal_deviate, 3},
     {"RHugin_node_get_entropy", (DL_FUNC) RHugin_node_get_entropy, 1},
     {"RHugin_node_get_mutual_information", (DL_FUNC) RHugin_node_get_mutual_information, 2},
+    {"RHugin_node_compute_sensitivity_data", (DL_FUNC) RHugin_node_compute_sensitivity_data, 2},
+    {"RHugin_node_get_sensitivity_constants", (DL_FUNC) RHugin_node_get_sensitivity_constants, 2},
+    {"RHugin_domain_get_sensitivity_set", (DL_FUNC) RHugin_domain_get_sensitivity_set, 1},
     {"RHugin_node_get_experience_table", (DL_FUNC) RHugin_node_get_experience_table, 1},
     {"RHugin_node_has_experience_table", (DL_FUNC) RHugin_node_has_experience_table, 1},
     {"RHugin_node_get_fading_table", (DL_FUNC) RHugin_node_get_fading_table, 1},
@@ -303,15 +607,6 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_node_set_position", (DL_FUNC) RHugin_node_set_position, 2},
     {"RHugin_node_get_position", (DL_FUNC) RHugin_node_get_position, 1},
     {NULL, NULL, 0}};
-
-  /* ToDo: add these to the precious list for 2.8.0 */
-  RHugin_domain_tag = install("RHUGIN_DOMAIN_TAG");
-  RHugin_node_tag = install("RHUGIN_NODE_TAG");
-  RHugin_table_tag = install("RHUGIN_TABLE_TAG");
-  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
-  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
-  RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
-  RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
 
   R_registerRoutines(info, NULL, dotCallMethods, NULL, NULL);
 }

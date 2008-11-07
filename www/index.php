@@ -84,7 +84,11 @@ Windows users can install Rgraphviz by following these three easy steps:
 <ol>
   <li> Download and install Graphviz version 2.20.3.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3.msi</a></ul><br>
   <li> Add <code>C:\Program Files\Graphviz 2.21\bin</code> to your Path (surprisingly this is actually where the installer puts 2.20.3 - you may have to adjust this setting on non-English systems or if Graphviz is installed anywhere other than the default location).<br><br>
-  <li> Download and install (using the 'Install package(s) from local zip files...' item in  the R Packages menu) the <a href="binary/Windows/Rgraphviz_1.20-0.zip">Rgraphviz</a> package.  Please use the Rgraphviz binary provided here - the official Bioconductor Windows binary is usually broken.  Please note that this binary requires R 2.8.0 and Graphviz 2.20.3.
+  <li> Download and install the Rgraphviz package in R-2.8.0 using biocLite.<br><br>
+    <code>
+    source("http://bioconductor.org/biocLite.R")<br>
+    biocLite("Rgraphviz")
+    </code>
 </ol>
 
 <br>

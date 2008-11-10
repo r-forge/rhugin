@@ -33,7 +33,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software which is available at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
+The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software; information is avialable at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
 <br><br>
 Code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
@@ -43,25 +43,35 @@ Code and development statistics are available on the <a href="http://r-forge.r-p
 RHugin has an external dependency on Hugin Expert. If you have a Hugin license then simply install the RHugin package and load it into your R session. Please note that the <code>HUGINHOME</code> environment variable must be set as described in the Hugin documentation (this is done automatically on Windows). If you do not have a Hugin license it is still possible to try the package: RHugin is compatible with the evaluation version of Hugin (again see <a href="http://www.hugin.com">www.hugin.com</a>). The evaluation version is limited but sufficient to explore the capabilities of the RHugin package.
 </p>
 
-<h4>Non-Windows</h4>
+<h4>*NIX</h4>
 
 <p>
-UNIX and Linux systems can install the package using the <code>install.packages</code> function in R.
+UNIX and Linux users can install the package using the <code>install.packages</code> function in R.
 </p>
 
 <pre>
      install.packages("RHugin", repos = "http://R-Forge.R-project.org")
 </pre>
 
+<h4>Mac OS X</h4>
+
+<p>
+A binary package is available for Mac OS X.  
+</p>
+
+<ul>
+  <li> <a href="binary/MacOSX/RHugin_0.5-3.tgz">RHugin_0.5-3.tgz</a> (built specifically for the CRAN provided R 2.8.0 : 2008-11-10)
+</ul>
+
 <h4>Windows</h4>
 
 <p>
-Building the package on Windows is quite difficult so binary packages are provided.
+Binary packages are also provided for Windows.
 </p>
 
 <ul>
   <li> <a href="binary/Windows/RHugin_0.4-10.zip">RHugin_0.4-10.zip</a> (requires R 2.7.2 and Hugin Researcher/Lite 7.0 : 2008-10-21)
-  <li> <a href="binary/Windows/RHugin_0.5-3.zip">RHugin_0.5-3.zip</a> (requires R 2.8.0 and Hugin Researcher/Lite 7.0 : 2008-10-29)
+  <li> <a href="binary/Windows/RHugin_0.5-3.zip">RHugin_0.5-3.zip</a> (requires R 2.8.0 and Hugin Researcher/Lite 7.0 : 2008-11-10)
 </ul>
 
 <p>

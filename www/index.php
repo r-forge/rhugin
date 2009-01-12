@@ -37,6 +37,12 @@ The RHugin package provides an R API for the Hugin Decision Engine. The RHugin p
 <br><br>
 Code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
+<h2>News</h2>
+
+<ul>
+<li>2009-01-05: The <code>compile</code> and <code>propagate</code> functions are generic as of version 0.5-4 for compatibility with the <code>gRain</code> and <code>gRbase</code> packages.</li>
+</ul>
+
 <h2>Installation</h2>
 
 <p>

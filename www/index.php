@@ -77,7 +77,7 @@ Binary packages are also provided for Windows.
 
 <ul>
   <li> <a href="binary/Windows/RHugin_0.4-10.zip">RHugin_0.4-10.zip</a> (requires R 2.7.2 and Hugin Researcher/Lite 7.0 : 2008-10-21)
-  <li> <a href="binary/Windows/RHugin_0.5-3.zip">RHugin_0.5-3.zip</a> (requires R 2.8.0 and Hugin Researcher/Lite 7.0 : 2008-11-10)
+  <li> <a href="binary/Windows/RHugin_0.5-4.zip">RHugin_0.5-4.zip</a> (requires R 2.8.1 and Hugin Researcher/Lite 7.0 : 2009-01-20)
 </ul>
 
 <p>

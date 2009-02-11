@@ -33,7 +33,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software; information is available at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
+The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software; information is available at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their Hugin workflow.
 <br><br>
 Code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
@@ -67,7 +67,7 @@ A binary package is provided for Mac OS X.
 </p>
 
 <ul>
-  <li> <a href="binary/MacOSX/RHugin_0.5-3.tgz">RHugin_0.5-3.tgz</a> (built specifically for the CRAN provided R 2.8.0 : 2008-11-10)
+  <li> <a href="binary/MacOSX/RHugin_0.6-1.tgz">RHugin_0.6-1.tgz</a> (built specifically for the CRAN provided R 2.8.1: 2009-02-11)
 </ul>
 
 <h4>Windows</h4>
@@ -77,7 +77,7 @@ A binary package is provided for Windows.
 </p>
 
 <ul>
-  <li> <a href="binary/Windows/RHugin_0.6-1.zip">RHugin_0.6-1.zip</a> (requires R 2.8.1 and Hugin Researcher/Lite 7.0 : 2009-02-11)
+  <li> <a href="binary/Windows/RHugin_0.6-1.zip">RHugin_0.6-1.zip</a> (requires R 2.8.1 and Hugin Researcher/Lite 7.0: 2009-02-11)
 </ul>
 
 <p>

@@ -33,13 +33,14 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software; information is avialable at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
+The RHugin package provides an R API for the Hugin Decision Engine. The RHugin package is free software and is distributed under the terms of the LGPL.  The Hugin Decision Engine is commercial software; information is available at <a href="http://www.hugin.com">www.hugin.com</a>.  Presently, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their analyses.
 <br><br>
 Code and development statistics are available on the <a href="http://r-forge.r-project.org/projects/rhugin/">summary</a> page.
 
 <h2>News</h2>
 
 <ul>
+<li>2009-02-11: RHugin 0.6 is now available.  The ploting of RHugin domains has been improved.</li>
 <li>2009-01-05: The <code>compile</code> and <code>propagate</code> functions are generic as of version 0.5-4 for compatibility with the <code>gRain</code> and <code>gRbase</code> packages.</li>
 </ul>
 
@@ -62,7 +63,7 @@ UNIX and Linux users can install the package using the <code>install.packages</c
 <h4>Mac OS X</h4>
 
 <p>
-A binary package is available for Mac OS X.  
+A binary package is provided for Mac OS X.  
 </p>
 
 <ul>
@@ -72,26 +73,21 @@ A binary package is available for Mac OS X.
 <h4>Windows</h4>
 
 <p>
-Binary packages are also provided for Windows.
+A binary package is provided for Windows.
 </p>
 
 <ul>
-  <li> <a href="binary/Windows/RHugin_0.4-10.zip">RHugin_0.4-10.zip</a> (requires R 2.7.2 and Hugin Researcher/Lite 7.0 : 2008-10-21)
-  <li> <a href="binary/Windows/RHugin_0.5-4.zip">RHugin_0.5-4.zip</a> (requires R 2.8.1 and Hugin Researcher/Lite 7.0 : 2009-01-20)
+  <li> <a href="binary/Windows/RHugin_0.6-1.zip">RHugin_0.6-1.zip</a> (requires R 2.8.1 and Hugin Researcher/Lite 7.0 : 2009-02-11)
 </ul>
 
 <p>
-Download an appropriate binary and install it using the "Install package(s) from local zip files..." item from the R Packages menu.
+Download then install using the "Install package(s) from local zip files..." item from the R Packages menu.
 </p>
 
-<h4>Rgraphviz</h4>
+<h4>Optional (but highly recommended): Rgraphviz</h4>
 
 <p>
 RHugin can take advantage of the Rgraphviz package to draw Hugin domains in R and to position nodes in hkb and net files.
-</p>
-
-<p>
-Non-Windows users can follow the Bioconductor <a href="http://bioconductor.org/packages/2.3/bioc/html/Rgraphviz.html">instructions</a> for installing Rgraphviz.
 </p>
 
 <p>
@@ -107,9 +103,13 @@ Windows users can install Rgraphviz by following these three easy steps:
     </code>
 </ol>
 
-<br>
+<p>
+Users of other operating systems should follow the Bioconductor <a href="http://bioconductor.org/packages/2.3/bioc/html/Rgraphviz.html">instructions</a> for installing Rgraphviz.
+</p>
 
-The Rgraphviz package must be loaded manually - <code>library(Rgraphviz)</code> - before using the RHugin functions <code>plot</code> and <code>position.nodes<code>.
+<p>
+The Rgraphviz package must be loaded manually using <code>library(Rgraphviz)</code> before using the RHugin functions <code>plot</code> and <code>layoutRHugin<code>.
+</p>
 
 <br>
 <br>

@@ -87,16 +87,16 @@ Download then install using the "Install package(s) from local zip files..." ite
 <h4>Optional (but highly recommended): Rgraphviz</h4>
 
 <p>
-RHugin can take advantage of the Rgraphviz package to draw Hugin domains in R and to position nodes in hkb and net files.
+RHugin uses the Rgraphviz package to draw Hugin domains in R and to position nodes in hkb and net files.
 </p>
 
 <p>
 Windows users can install Rgraphviz by following these three easy steps:
 
 <ol>
-  <li> Download and install Graphviz version 2.20.3.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3.msi</a></ul><br>
-  <li> Add <code>C:\Program Files\Graphviz 2.21\bin</code> to your Path (surprisingly this is actually where the installer puts 2.20.3 - you may have to adjust this setting on non-English systems or if Graphviz is installed anywhere other than the default location).<br><br>
-  <li> Download and install the Rgraphviz package in R-2.8.0 using biocLite.<br><br>
+  <li> Download and install the <i>current stable release</i> of Graphviz.<br><ul><li><a href="http://www.graphviz.org/Download_windows.php">http://www.graphviz.org/Download_windows.php</a></ul><br>
+  <li> Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to your PATH Environment Variable.<br><br>
+  <li> Download and install the Rgraphviz package using biocLite.<br><br>
     <code>
     source("http://bioconductor.org/biocLite.R")<br>
     biocLite("Rgraphviz")

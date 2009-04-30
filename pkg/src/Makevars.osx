@@ -1,0 +1,5 @@
+PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGINHOME)/Headers
+PKG_LIBS=$(HUGINHOME)/Libraries/libhugin2.a -lm -lz -lpthread \
+         $(BLAS_LIBS) $(FLIBS)
+
+

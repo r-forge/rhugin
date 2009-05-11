@@ -91,7 +91,15 @@ Linux users can install the package using the <code>install.packages</code> func
 <h4>Installing the RHugin Package on Mac OS X</h4>
 
 <p>
-A source package is provided for Mac OS X.
+Users of Hugin Lite can install the following binary package.
+</p>
+
+<ul>
+<li> <a href="binary/MacOSX/RHugin_0.6-6_R_i386-apple-darwin8.11.1.tgz">RHugin_0.6-6_R_i386-apple-darwin8.11.1.tgz</a></li>
+</ul>
+
+<p>
+Users of Hugin Researcher must install the package from source. Please use the following Mac OS X specific source package.
 </p>
 
 <ul>

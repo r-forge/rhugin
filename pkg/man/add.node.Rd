@@ -9,9 +9,8 @@ Add a node to an RHugin domain object.
 
 \usage{
 add.node(domain, name,
-         category = c("chance", "decision", "utility", "instance"),
+         category = c("chance", "decision", "utility"),
          kind = c("discrete", "continuous"),
-         subtype = c("labeled", "boolean", "numbered", "interval"),
          states)
 }
 
@@ -20,12 +19,11 @@ add.node(domain, name,
   \item{name}{a character string specifying the name of the new node (see details).}
   \item{category}{a character string specifying the category of the node.}
   \item{kind}{a character string specifying the kind of the node.}
-  \item{subtype}{a character string specifying the subtype of the node.}
-  \item{states}{an optional vector of states for the node.  The type of vector should be appropriate for the subtype of the node: character for labeled node or numeric for numbered and interval nodes.  Boolean nodes automatically have their states set to \code{FALSE} and \code{TRUE}.  See the function \code{\link{set.states}} for further details.}
+  \item{states}{an optional vector of states for the node.  The subtype of the node is inferred from the class of \code{states}: a character vector results in a labeled node, a numeric (or integer) vector results in a numbered node and a logical vector results in a boolean node. Be aware that the states of a boolean node are \code{FALSE} and \code{TRUE} in that order regardless of the value of \code{states}.}
 }
 
 \details{
-The name of the node must be a valid identifier in the C programming language.  In particular the name must start with a letter and contain no white space.
+The name of the node must be a valid identifier in the C programming language.  In particular the name must start with a letter and contain no white space.  Additionally, the words \dQuote{Freq}, \dQuote{Value}, \dQuote{Cost} and \dQuote{Utility} are reserved and cannot be used as the name of a node.
 }
 
 \value{

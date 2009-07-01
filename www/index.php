@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2009-07-01: RHugin 0.7-2 adds support for continuous nodes and influence diagrams. This release requires Hugin 7.1 and R 2.9.1.
 <li>2009-04-30: RHugin 0.6-6 is compatible with Hugin 7.1 and R 2.9.0.</li>
 <li>2009-02-11: RHugin 0.6 is now available.  The plotting of RHugin domains has been improved.</li>
 <li>2009-01-05: The <code>compile</code> and <code>propagate</code> functions are generic as of version 0.5-4 for compatibility with the <code>gRain</code> and <code>gRbase</code> packages.</li>
@@ -65,7 +66,7 @@ If you do not have a licensed copy of Hugin and would like to evaluate the RHugi
 <h4>Dependencies</h4>
 
 <p>
-The RHugin packages depends on the graph package and on the gRain package.  These two packages (and their dependencies) are available on CRAN.  Run the command
+The RHugin packages depends on the <code>graph</code> and <code>gRain</code> packages.  These two packages (and their dependencies) are available on CRAN.  Run the command
 </p>
 
 <pre>
@@ -95,7 +96,7 @@ Users of Hugin Lite can install the following binary package.
 </p>
 
 <ul>
-<li> <a href="binary/MacOSX/RHugin_0.6-6_R_i386-apple-darwin8.11.1.tgz">RHugin_0.6-6_R_i386-apple-darwin8.11.1.tgz</a></li>
+<li> <a href="binary/MacOSX/RHugin_0.7-2_R_i386-apple-darwin8.11.1.tgz">RHugin_0.7-2_R_i386-apple-darwin8.11.1.tgz</a></li>
 </ul>
 
 <p>
@@ -103,7 +104,7 @@ Users of Hugin Researcher must install the package from source. Please use the f
 </p>
 
 <ul>
-<li> <a href="binary/MacOSX/RHugin_0.6-6.macosx.tar.gz">RHugin_0.6-6.macosx.tar.gz</a></li>
+<li> <a href="binary/MacOSX/RHugin_0.7-2.macosx.tar.gz">RHugin_0.7-2.macosx.tar.gz</a></li>
 </ul>
 
 <p>
@@ -113,7 +114,7 @@ To install the source package:
 <ol>
 <li> Start R.</li>
 <li> Set the <code>HUGINHOME</code> environment variable: <code>Sys.setenv(HUGINHOME = "/Applications/HDE7.1-researcher")</code>.
-<li> Install <code>RHugin_0.6-6.macosx.tar.gz</code> using the <i>Package Installer</i> menu item from the R <i>Packages & Data</i> menu.
+<li> Install <code>RHugin_0.7-2.macosx.tar.gz</code> using the <i>Package Installer</i> menu item from the R <i>Packages & Data</i> menu.
 </ol>
 
 
@@ -124,7 +125,7 @@ A binary package is provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.6-6.zip">RHugin_0.6-6.zip</a> (requires R 2.9.0 and Hugin Researcher/Lite 7.1: 2009-04-30)</li>
+<li> <a href="binary/Windows/RHugin_0.7-2.zip">RHugin_0.7-2.zip</a> (requires R 2.9.1 and Hugin Researcher/Lite 7.1: 2009-07-01)</li>
 </ul>
 
 <p>

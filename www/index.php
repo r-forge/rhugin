@@ -129,10 +129,10 @@ A binary package is provided for Windows.
 </ul>
 
 <p>
-Download then install using the "Install package(s) from local zip files..." item from the R Packages menu.
+Use the "Install package(s) from local zip files..." item from the R Packages menu to install the package.
 </p>
 
-<h2>Optional (but highly recommended): Rgraphviz</h2>
+<h2>Optional: Rgraphviz</h2>
 
 <p>
 RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in hkb and NET files.  The Rgraphviz package must be loaded manually using <code>library(Rgraphviz)</code> in order for the RHugin functions <code>plot</code> and <code>layoutRHugin</code> to work.
@@ -141,16 +141,29 @@ RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in
 <h4>Microsoft Windows</h4>
 
 <p>
-On Windows only certain combinations of Graphviz and Rgraphviz are compatible.  These instructions install Rgraphviz 1.22.1 and Graphviz 2.20.3a.
+Only certain versions of Graphviz are compatible with the Rgraphviz package. On Windows XP, Graphviz 2.20.3a seems to work consistently (I only have XP so can not test Vista and Windows 7).
 
 <ol>
-  <li> Download and install Graphviz 2.20.3a.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi</a></li></ul></li><br>
-  <li> Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows PATH Environment Variable.</li><br><br>
-  <li> Download Rgraphviz 1.22.1 and install it using the <i>Install package(s) from local zip files...</i> menu item from the R <i>Packages</i> menu.<br><ul><li><a href="http://www.bioconductor.org/packages/release/bioc/bin/windows/contrib/2.9/Rgraphviz_1.22.1.zip">http://www.bioconductor.org/packages/release/bioc/bin/windows/contrib/2.9/Rgraphviz_1.22.1.zip</a></li></ul></li><br>
+  <li>Download and install Graphviz 2.20.3a.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi</a></li></ul></li><br>
+  <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows PATH Environment Variable.</li><br>
+  <li>Start R.<br></li><br>
+  <li>Install the Rgraphviz package using the <code>biocLite</code> function.<br>
+    <pre>
+      source(&quot;http://bioconductor.org/biocLite.R&quot;)
+      biocLite(&quot;Rgraphviz&quot;)
+    </pre>
+  </li>
 </ol>
 </p>
 
-<h4>Linux and Mac OS X</h4>
+<h4>Mac OS X</h4>
+
+<p>
+Instructions for installing Graphviz on Mac OS X will be available here just as soon as there is a stable Graphviz installer for Mac OS X 10.6.
+</p>
+
+
+<h4>Linux and other *nix</h4>
 
 <p>
 Graphviz must be installed on the computer in order for the Rgraphviz package to work.  Graphviz can be obtained from the <a href="http://www.graphviz.org">Graphviz</a> website.  Once Graphviz has been installed, follow the Bioconductor <a href="http://www.bioconductor.org/packages/release/bioc/html/Rgraphviz.html">instructions</a> to install Rgraphviz.

@@ -92,30 +92,16 @@ Linux users can install the package using the <code>install.packages</code> func
 <h4>Installing the RHugin Package on Mac OS X</h4>
 
 <p>
-Users of Hugin Lite can install the following binary package.
+A binary package is provided for R on Mac OS X.
 </p>
 
 <ul>
-<li> <a href="binary/MacOSX/RHugin_0.7-2_R_i386-apple-darwin8.11.1.tgz">RHugin_0.7-2_R_i386-apple-darwin8.11.1.tgz</a></li>
+<li> <a href="binary/MacOSX/RHugin_0.7-5.tgz">RHugin_0.7-5.tgz</a> (built for R 2.10.0 and Hugin Researcher/Lite 7.1: 2009-11-24)</li>
 </ul>
 
 <p>
-Users of Hugin Researcher must install the package from source. Please use the following Mac OS X specific source package.
+Install <code>RHugin_0.7-5.tgz</code> using the <i>Package Installer</i> menu item from the R <i>Packages & Data</i> menu.
 </p>
-
-<ul>
-<li> <a href="binary/MacOSX/RHugin_0.7-2.macosx.tar.gz">RHugin_0.7-2.macosx.tar.gz</a></li>
-</ul>
-
-<p>
-To install the source package:
-</p>
-
-<ol>
-<li> Start R.</li>
-<li> Set the <code>HUGINHOME</code> environment variable: <code>Sys.setenv(HUGINHOME = "/Applications/HDE7.1-researcher")</code>.
-<li> Install <code>RHugin_0.7-2.macosx.tar.gz</code> using the <i>Package Installer</i> menu item from the R <i>Packages & Data</i> menu.
-</ol>
 
 
 <h4>Installing the RHugin Package on Microsoft Windows</h4>
@@ -125,7 +111,7 @@ A binary package is provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.7-2.zip">RHugin_0.7-2.zip</a> (requires R 2.9.1 and Hugin Researcher/Lite 7.1: 2009-07-01)</li>
+<li> <a href="binary/Windows/RHugin_0.7-5.zip">RHugin_0.7-5.zip</a> (built for R 2.10.0 and Hugin Researcher/Lite 7.1: 2009-11-24)</li>
 </ul>
 
 <p>

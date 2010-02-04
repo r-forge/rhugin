@@ -56,36 +56,59 @@ summary.RHuginDomain <- function(object, nodes = FALSE, ...)
                        PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    node.category <- .Call("RHugin_node_get_category", node.ptr,
-                            PACKAGE = "RHugin")
+    category <- .Call("RHugin_node_get_category", node.ptr,
+                       PACKAGE = "RHugin")
     RHugin.handle.error()
 
-    if(node.category == "chance" || node.category == "decision") {
-      node.kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
+    if(category == "chance" || category == "decision") {
+      kind <- .Call("RHugin_node_get_kind", node.ptr, PACKAGE = "RHugin")
       RHugin.handle.error()
 
-      if(node.kind == "discrete") {
-        node.subtype <- .Call("RHugin_node_get_subtype", node.ptr,
+      if(kind == "discrete") {
+        subtype <- .Call("RHugin_node_get_subtype", node.ptr,
                                PACKAGE = "RHugin")
         RHugin.handle.error()
         states <- get.states(object, node)
       }
 
       else {
-        node.subtype <- NULL
+        subtype <- NULL
         states <- NULL
       }
     }
 
     else {
-      node.kind <- NULL
-      node.subtype <- NULL
+      kind <- NULL
+      subtype <- NULL
       states <- NULL
     }
 
+    evidence.is.entered <- .Call("RHugin_node_evidence_is_entered", node.ptr,
+                                  PACKAGE = "RHugin")
 
-    node.summary[[node]] <- list(category = node.category, kind = node.kind,
-                                 subtype = node.subtype, states = states)
+    likelihood.is.entered <- .Call("RHugin_node_likelihood_is_entered",
+                                    node.ptr, PACKAGE = "RHugin")
+
+    evidence.is.propagated <- .Call("RHugin_node_evidence_is_propagated",
+                                     node.ptr, PACKAGE = "RHugin")
+
+    likelihood.is.propagated <- .Call("RHugin_node_likelihood_is_propagated",
+                                       node.ptr, PACKAGE = "RHugin")
+
+    experience.table <- .Call("RHugin_node_has_experience_table", node.ptr,
+                               PACKAGE = "RHugin")
+
+    fading.table <- .Call("RHugin_node_has_fading_table", node.ptr,
+                           PACKAGE = "RHugin")
+
+    node.summary[[node]] <- list(category = category, kind = kind,
+                                 subtype = subtype, states = states,
+                                 evidence.is.entered = evidence.is.entered,
+                                 likelihood.is.entered = likelihood.is.entered,
+                                 evidence.is.propagated = evidence.is.propagated,
+                                 likelihood.is.propagated = likelihood.is.propagated,
+                                 experience.table = experience.table,
+                                 fading.table = fading.table)
   }
 
   ans <- list(node.names = get.nodes(object), edge.list = get.edges(object),

@@ -1,8 +1,8 @@
 plot.RHuginDomain <- function(x, y, ...)
 {
-  if(!is.element("package:Rgraphviz", search()))
+  if(!require(Rgraphviz))
     stop("plotting an RHugin domain requires the Rgraphviz ",
-         "package - please load Rgraphviz and try again")
+         "package - please install Rgraphviz and try again")
 
   nodes <- get.nodes(x)
   node.summary <- summary(x, nodes = nodes)$nodes
@@ -17,11 +17,21 @@ plot.RHuginDomain <- function(x, y, ...)
     }
     else if(node.summary[[node]]$category == "utility") {
       fill[node] <- "green"
+      ## diamond not yet supported by Rgraphviz ##
+      #shape[node] <- "diamond"
       shape[node] <- "rectangle"
     }
     else {
-      fill[node] <- "yellow"
-      shape[node] <- "ellipse"
+      if(!is.null(node.summary[[node]]$kind) &&
+          node.summary[[node]]$kind == "discrete")
+      {
+        fill[node] <- "yellow"
+        shape[node] <- "ellipse"
+      }
+      else {
+        fill[node] <- "orange"
+        shape[node] <- "ellipse"
+      }
     }
   }
 

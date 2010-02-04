@@ -1,5 +1,17 @@
-PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGINHOME)/include
-PKG_LIBS=-L$(HUGINHOME)/$(LIBnn) -lhugin2 -Wl,-rpath=$(HUGINHOME)/$(LIBnn) \
-         -lm -lz -lpthread -lcrypt $(BLAS_LIBS) $(FLIBS)
+ifeq ($(shell uname),Darwin)
+  RHUGIN_LIBCRYPT=
+  HUGIN_INCLUDE_DIR=$(HUGINHOME)/Headers
+  HUGIN_LIB_DIR=$(HUGINHOME)/Libraries
+  HUGIN_RPATH=-Wl,-rpath,$(HUGINHOME)/Libraries
+else
+  RHUGIN_LIBCRYPT=-lcrypt
+  HUGIN_INCLUDE_DIR=$(HUGINHOME)/include
+  HUGIN_LIB_DIR=$(HUGINHOME)/$(LIBnn)
+  HUGIN_RPATH=-Wl,-rpath=$(HUGINHOME)/$(LIBnn)
+endif
+
+PKG_CPPFLAGS=-DH_DOUBLE -I$(HUGIN_INCLUDE_DIR)
+PKG_LIBS=-L$(HUGIN_LIB_DIR) -lhugin2 -lm -lz -lpthread $(RHUGIN_LIBCRYPT) \
+           $(HUGIN_RPATH) $(BLAS_LIBS) $(FLIBS)
 
 

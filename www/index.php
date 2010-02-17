@@ -118,7 +118,7 @@ Use the "Install package(s) from local zip files..." item from the R Packages me
 <h2>Optional: Rgraphviz</h2>
 
 <p>
-RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in hkb and NET files.  The Rgraphviz package must be loaded manually using <code>library(Rgraphviz)</code> in order for the RHugin functions <code>plot</code> and <code>layoutRHugin</code> to work.
+RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in hkb and NET files.
 </p>
 
 <h4>Microsoft Windows</h4>
@@ -142,9 +142,27 @@ Only certain versions of Graphviz are compatible with the Rgraphviz package. On 
 <h4>Mac OS X</h4>
 
 <p>
-Instructions for installing Graphviz on Mac OS X will be available here just as soon as there is a stable Graphviz installer for Mac OS X 10.6.
+The Rgraphviz package has an external dependency on Graphviz (<a href="http://www.graphviz.org">http://www.graphviz.org</a>) hence you need to install Graphviz on your computer before attempting to install the Rgraphviz package. You can download the latest version of Graphviz for Max OS X from the following link.
 </p>
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.graphviz.org/Download_macos.php">http://www.graphviz.org/Download_macos.php</a>
+
+<p>
+Note that <b>snowleopard</b> refers to Mac OS X version 10.6 and <b>leopard</b> refers to Mac OS X version 10.5. Older versions of Mac OS X (e.g., Tiger) are not supported by Graphviz. You can find your Mac OS X version by clicking on the Apple menu and selecting <i>About This Mac</i>.  Graphviz is distributed as a package for Mac OS X's Installer.app.  Double click the downloaded file and follow the instructions to install the software.
+<p>
+
+<p>
+Once Graphviz has been installed, run the following command in R to build and install the Rgraphviz package.
+</p>
+
+<pre>
+  install.packages(&quot;Rgraphviz&quot;, repos = &quot;http://www.bioconductor.org&quot;, type = &quot;source&quot;)
+</pre>
+
+<p>
+It is also possible to install Rgraphviz using Bioconductor's <code>biocLite</code> function which will install a binary package.  The binary package is built for a specific version of Graphviz and if that version does not match the version on your computer, it may cause problems.  
+</p>
 
 <h4>Linux and other *nix</h4>
 
@@ -152,9 +170,6 @@ Instructions for installing Graphviz on Mac OS X will be available here just as 
 Graphviz must be installed on the computer in order for the Rgraphviz package to work.  Graphviz can be obtained from the <a href="http://www.graphviz.org">Graphviz</a> website.  Once Graphviz has been installed, follow the Bioconductor <a href="http://www.bioconductor.org/packages/release/bioc/html/Rgraphviz.html">instructions</a> to install Rgraphviz.
 </p>
 
-<p>
-
-</p>
 
 <br>
 <br>

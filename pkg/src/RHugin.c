@@ -4,6 +4,8 @@
 SEXP RHugin_domain_tag;
 SEXP RHugin_node_tag;
 SEXP RHugin_table_tag;
+SEXP RHugin_expression_tag;
+SEXP RHugin_model_tag;
 SEXP RHugin_junction_tree_tag;
 SEXP RHugin_clique_tag;
 
@@ -88,6 +90,30 @@ h_table_t tablePointerFromSEXP(SEXP Stable)
 }
 
 
+h_expression_t expressionPointerFromSEXP(SEXP Sexpression)
+{
+  if(R_ExternalPtrAddr(Sexpression) == NULL)
+    error("NULL value passed as expression");
+
+  if(TYPEOF(Sexpression) != EXTPTRSXP || R_ExternalPtrTag(Sexpression) != RHugin_expression_tag)
+    error("the expression argument does not appear to be a valid Hugin expression");
+
+  return (h_expression_t) R_ExternalPtrAddr(Sexpression);
+}
+
+
+h_model_t modelPointerFromSEXP(SEXP Smodel)
+{
+  if(R_ExternalPtrAddr(Smodel) == NULL)
+    error("NULL value passed as model");
+
+  if(TYPEOF(Smodel) != EXTPTRSXP || R_ExternalPtrTag(Smodel) != RHugin_model_tag)
+    error("the model argument does not appear to be a valid Hugin model");
+
+  return (h_model_t) R_ExternalPtrAddr(Smodel);
+}
+
+
 h_junction_tree_t jtPointerFromSEXP(SEXP Sjt)
 {
   if(R_ExternalPtrAddr(Sjt) == NULL)
@@ -112,7 +138,7 @@ h_clique_t cliquePointerFromSEXP(SEXP Sclique)
 }
 
 
-void RHuginParseNETError(h_location_t line, h_string_t message, void *data)
+void RHuginParseError(h_location_t line, h_string_t message, void *data)
 {
   Rprintf("Parse error at line %d: %s\n\n", (int) line, message);
 }
@@ -190,6 +216,7 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_max_number_of_separators", (DL_FUNC) RHugin_domain_get_max_number_of_separators, 1},
     {"RHugin_domain_triangulate", (DL_FUNC) RHugin_domain_triangulate, 2},
     {"RHugin_domain_triangulate_with_order", (DL_FUNC) RHugin_domain_triangulate_with_order, 2},
+    {"RHugin_domain_is_triangulated", (DL_FUNC) RHugin_domain_is_triangulated, 1},
     {"RHugin_domain_get_elimination_order", (DL_FUNC) RHugin_domain_get_elimination_order, 1},
     /*{"RHugin_domain_parse_nodes", (DL_FUNC) RHugin_domain_parse_nodes, 4},*/
     /*{"RHugin_class_parse_nodes", (DL_FUNC) RHugin_class_parse_nodes, 4},*/
@@ -285,8 +312,8 @@ void R_init_RHugin(DllInfo *info)
     {"RHugin_domain_get_log_likelihood", (DL_FUNC) RHugin_domain_get_log_likelihood, 1},
     {"RHugin_domain_get_AIC", (DL_FUNC) RHugin_domain_get_AIC, 1},
     {"RHugin_domain_get_BIC", (DL_FUNC) RHugin_domain_get_BIC, 1},
-    /*{"RHugin_domain_parse_cases", (DL_FUNC) RHugin_domain_parse_cases, 4},*/
-    /*{"RHugin_domain_save_cases", (DL_FUNC) RHugin_domain_save_cases, 7},*/
+    {"RHugin_domain_parse_cases", (DL_FUNC) RHugin_domain_parse_cases, 2},
+    {"RHugin_domain_save_cases", (DL_FUNC) RHugin_domain_save_cases, 7},
     {"RHugin_domain_learn_structure", (DL_FUNC) RHugin_domain_learn_structure, 1},
     {"RHugin_domain_set_significance_level", (DL_FUNC) RHugin_domain_set_significance_level, 2},
     {"RHugin_domain_get_significance_level", (DL_FUNC) RHugin_domain_get_significance_level, 1},
@@ -313,6 +340,10 @@ void R_init_RHugin(DllInfo *info)
   R_PreserveObject(RHugin_node_tag);
   RHugin_table_tag = install("RHUGIN_TABLE_TAG");
   R_PreserveObject(RHugin_table_tag);
+  RHugin_expression_tag = install("RHUGIN_EXPRESSION_TAG");
+  R_PreserveObject(RHugin_expression_tag);
+  RHugin_model_tag = install("RHUGIN_MODEL_TAG");
+  R_PreserveObject(RHugin_model_tag);
   RHugin_junction_tree_tag = install("RHUGIN_JUNCTION_TREE_TAG");
   R_PreserveObject(RHugin_junction_tree_tag);
   RHugin_clique_tag = install("RHUGIN_CLIQUE_TAG");
@@ -344,15 +375,15 @@ void R_init_RHugin(DllInfo *info)
   RHUGIN_INTERVAL = mkChar("interval");
   R_PreserveObject(RHUGIN_INTERVAL);
 
-  RHUGIN_TM_CLIQUE_SIZE = mkChar("clique_size");
+  RHUGIN_TM_CLIQUE_SIZE = mkChar("clique.size");
   R_PreserveObject(RHUGIN_TM_CLIQUE_SIZE);
-  RHUGIN_TM_CLIQUE_WEIGHT = mkChar("clique_weight");
+  RHUGIN_TM_CLIQUE_WEIGHT = mkChar("clique.weight");
   R_PreserveObject(RHUGIN_TM_CLIQUE_WEIGHT);
-  RHUGIN_TM_FILL_IN_SIZE = mkChar("fill_in_size");
+  RHUGIN_TM_FILL_IN_SIZE = mkChar("fill.in.size");
   R_PreserveObject(RHUGIN_TM_FILL_IN_SIZE);
-  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("fill_in_weight");
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("fill.in.weight");
   R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
-  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("total_weight");
+  RHUGIN_TM_FILL_IN_WEIGHT = mkChar("total.weight");
   R_PreserveObject(RHUGIN_TM_FILL_IN_WEIGHT);
 
   RHUGIN_EQUILIBRIUM_SUM = mkChar("sum");

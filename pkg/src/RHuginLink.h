@@ -142,13 +142,19 @@ DLLEXPORT SEXP RHugin_node_get_subtype(SEXP Snode);
 
 /* Section 5.3 Syntax for expression */
 
-// SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel, SEXP Serror_handler, SEXP Sdata);
-// SEXP RHugin_expression_to_string(SEXP Sexpression);
+DLLEXPORT SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel);
+DLLEXPORT SEXP RHugin_expression_to_string(SEXP Sexpression);
 
 
 /* Section 5.4 Creating and maintaining models */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes);
+DLLEXPORT SEXP RHugin_node_get_model(SEXP Snode);
+DLLEXPORT SEXP RHugin_model_delete(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_get_nodes(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_get_size(SEXP Smodel);
+DLLEXPORT SEXP RHugin_model_set_expression(SEXP Smodel, SEXP Sindex, SEXP Sexpression);
+DLLEXPORT SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex);
 
 
 /* Section 5.5 State labels */
@@ -167,12 +173,14 @@ DLLEXPORT SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalue);
 
 /* Section 5.8 Generating tables */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_node_generate_table(SEXP Snode);
+DLLEXPORT SEXP RHugin_domain_generate_tables(SEXP Sdomain);
 
 
 /* Section 5.9 How the computations are done */
 
-// Removed by Kjell Konis 16.10.2009
+DLLEXPORT SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount);
+DLLEXPORT SEXP RHugin_model_get_number_of_samples_per_interval(SEXP Smodel);
 
 
 /* Section 6.2 Compilation */
@@ -183,6 +191,7 @@ DLLEXPORT SEXP RHugin_domain_set_max_number_of_separators(SEXP Sdomain, SEXP Sco
 DLLEXPORT SEXP RHugin_domain_get_max_number_of_separators(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod);
 DLLEXPORT SEXP RHugin_domain_triangulate_with_order(SEXP Sdomain, SEXP Sorder);
+DLLEXPORT SEXP RHugin_domain_is_triangulated(SEXP Sdomain);
 DLLEXPORT SEXP RHugin_domain_get_elimination_order(SEXP Sdomain);
 // SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 // SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
@@ -382,9 +391,9 @@ DLLEXPORT SEXP RHugin_domain_get_BIC(SEXP Sdomain);
 
 /* Section 11.3 Data files */
 
-// SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_handler, SEXP Sdata);
-// SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes, SEXP Scases,
-//                               SEXP Sinclude_case_counts, SEXP Sseparator, SEXP Smissing_data);
+DLLEXPORT SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name);
+DLLEXPORT SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes, SEXP Scases,
+                                        SEXP Sinclude_case_counts, SEXP Sseparator, SEXP Smissing_data);
  
 
 /* Section 11.4 Learning network structure */

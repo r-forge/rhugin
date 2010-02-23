@@ -46,8 +46,9 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
-<li>2010-02-05: RHugin 0.7-12 released.
-<li>2009-07-01: RHugin 0.7-2 adds support for continuous nodes and influence diagrams. This release requires Hugin 7.1 and R 2.9.1.
+<li>2010-02-23: RHugin 0.8-3 adds support for structure learning and CPT learning. This release requires Hugin 7.2, R 2.10.1 and gRbase 1.3.3. Note that RHugin now depends on gRbase rather than gRain.</li>
+<li>2010-02-05: RHugin 0.7-12 released.</li>
+<li>2009-07-01: RHugin 0.7-2 adds support for continuous nodes and influence diagrams. This release requires Hugin 7.1 and R 2.9.1.</li>
 <li>2009-04-30: RHugin 0.6-6 is compatible with Hugin 7.1 and R 2.9.0.</li>
 <li>2009-02-11: RHugin 0.6 is now available.  The plotting of RHugin domains has been improved.</li>
 <li>2009-01-05: The <code>compile</code> and <code>propagate</code> functions are generic as of version 0.5-4 for compatibility with the <code>gRain</code> and <code>gRbase</code> packages.</li>
@@ -56,18 +57,18 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>Installation</h2>
 
 <p>
-If your Hugin installation is in a non-standard location, you must set the <code>HUGINHOME</code> environment variable in order to use the package (see the <a href="http://www.hugin.com/developer/documentation/API_Manuals">Hugin C API Manual</a>).  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions as appropriate.
+If your Hugin installation is in a non-standard location, you must set the <code>HUGINHOME</code> environment variable in order to use the package (see the <a href="http://www.hugin.com/developer/documentation/api-manuals">Hugin API Reference Manual</a>).  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions below.
 </p>
 
 
 <h4>Dependencies</h4>
 
 <p>
-The RHugin package depends on the <code>graph</code> and <code>gRain</code> packages.  These two packages (and their dependencies) are available on CRAN.  Run the command
+The RHugin package depends on the <code>graph</code> and <code>gRbase</code> packages.  These two packages (and their dependencies) are available on CRAN.  Run the command
 </p>
 
 <pre>
-    install.packages(c("graph", "gRain"))
+    install.packages(c("graph", "gRbase"))
 </pre>
 
 <p>
@@ -108,7 +109,7 @@ A binary package is provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.7-12.zip">RHugin_0.7-12.zip</a> (built for R 2.10.1 and Hugin Researcher/Lite 7.2: 2010-02-05)</li>
+<li> <a href="binary/Windows/RHugin_0.8-3.zip">RHugin_0.8-3.zip</a> (built for R 2.10.1 and Hugin Researcher/Lite 7.2: 2010-02-23)</li>
 </ul>
 
 <p>

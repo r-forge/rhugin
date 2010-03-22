@@ -5,12 +5,12 @@ add.node <- function(domain, name,
 {
   RHugin.check.args(domain, character(0), name, "add.node")
 
-  status <- numeric(3)
   category <- match.arg(category)
   kind <- match.arg(kind)
 
-  if(is.element(name, c("Freq","Value","Cost","Utility","Counts","Lambda")))
-    stop("invalid name: ", dQuote(name), " is an RHugin reserved word")
+  reserved <- c("Freq", "Value", "Cost", "Utility", "Counts", "Lambda")
+  if(is.element(name, reserved))
+    stop("invalid name: ", dQuote(name), " is a reserved word in RHugin")
 
   if(!missing(subtype))
     subtype <- match.arg(subtype,
@@ -18,10 +18,10 @@ add.node <- function(domain, name,
   else
     subtype <- NULL
 
-  new.node <- .Call("RHugin_domain_new_node", domain, as.character(category),
-                     as.character(kind), PACKAGE = "RHugin")
-  status[1] <- error.code()
-  status[2] <- .Call("RHugin_node_set_name", new.node, name, PACKAGE = "RHugin")
+  node.ptr <- .Call("RHugin_domain_new_node", domain, category, kind,
+                     PACKAGE = "RHugin")
+
+  .Call("RHugin_node_set_name", node.ptr, name, PACKAGE = "RHugin")
 
   if((category == "chance" && kind == "discrete") || category == "decision") {
     if(!is.null(subtype) && !missing(states))
@@ -32,7 +32,7 @@ add.node <- function(domain, name,
       set.states(domain, node = name, states = states)
   }
 
-  invisible(status)
+  invisible()
 }
 
 

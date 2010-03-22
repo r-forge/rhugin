@@ -4,7 +4,6 @@ hugin.domain <- function(graph, data)
     stop("the graph argument is not supported in this release of RHugin")
 
   domain <- .Call("RHugin_new_domain", PACKAGE = "RHugin")
-  RHugin.handle.error()
   oldClass(domain) <- "RHuginDomain"
 
   if(!missing(data) && is.data.frame(data)) {
@@ -13,7 +12,7 @@ hugin.domain <- function(graph, data)
       node.names <- node.names[-Freq]
 
     for(node in node.names) {
-      status <- switch(class(data[[node]])[1],
+      switch(class(data[[node]])[1],
         "integer" = add.node(domain, name = node,
                              states = as.numeric(sort(unique(data[[node]])))),
 

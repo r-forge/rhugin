@@ -5,11 +5,11 @@ clone.node <- function(domain, node, name)
   node.ptr <- .Call("RHugin_domain_get_node_by_name", domain, node,
                      PACKAGE = "RHugin")
 
-  new.node <- .Call("RHugin_node_clone", node.ptr, PACKAGE = "RHugin")
+  clone.ptr <- .Call("RHugin_node_clone", node.ptr, PACKAGE = "RHugin")
 
-  status <- .Call("RHugin_node_set_name", new.node, name, PACKAGE = "RHugin")
+  .Call("RHugin_node_set_name", clone.ptr, name, PACKAGE = "RHugin")
 
-  invisible(status)
+  invisible()
 }
 
 

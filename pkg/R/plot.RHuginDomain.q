@@ -1,12 +1,12 @@
 plot.RHuginDomain <- function(x, y, ...)
 {
-  RHugin.check.args(x, character(0), character(0), "plot.RHuginDomain")
+  RHugin.check.domain(x, "plot.RHuginDomain")
 
   if(!require(Rgraphviz))
     stop("plotting an RHugin domain requires the Rgraphviz package")
 
   nodes <- get.nodes(x)
-  node.ptrs <- .Call("RHugin_domain_get_node_by_name", x, as.character(nodes),
+  node.ptrs <- .Call("RHugin_domain_get_node_by_name", x, nodes,
                       PACKAGE = "RHugin")
   categories <- .Call("RHugin_node_get_category", node.ptrs, PACKAGE = "RHugin")
   kinds <- .Call("RHugin_node_get_kind", node.ptrs, PACKAGE = "RHugin")

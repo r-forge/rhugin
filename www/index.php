@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2010-03-23: RHugin 0.9-1 released.  All the planned features for the RHugin package have been implemented.</li>
 <li>2010-02-23: RHugin 0.8-3 adds support for structure learning and CPT learning. This release requires Hugin 7.2, R 2.10.1 and gRbase 1.3.3. Note that RHugin now depends on gRbase rather than gRain.</li>
 <li>2010-02-05: RHugin 0.7-12 released.</li>
 <li>2009-07-01: RHugin 0.7-2 adds support for continuous nodes and influence diagrams. This release requires Hugin 7.1 and R 2.9.1.</li>
@@ -109,7 +110,7 @@ A binary package is provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.8-3.zip">RHugin_0.8-3.zip</a> (built for R 2.10.1 and Hugin Researcher/Lite 7.2: 2010-02-23)</li>
+<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (built for R 2.10.1 and Hugin Researcher/Lite 7.2: 2010-03-23)</li>
 </ul>
 
 <p>

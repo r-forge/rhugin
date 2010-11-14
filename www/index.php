@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2010-11-13: RHugin 7.4 released.</li>
 <li>2010-04-12: RHugin 7.3-1 released. From now on the package version will match the Hugin release.</li>
 <li>2010-03-23: RHugin 0.9-1 released.  All the planned features for the RHugin package have been implemented.</li>
 <li>2010-02-23: RHugin 0.8-3 adds support for structure learning and CPT learning. This release requires Hugin 7.2, R 2.10.1 and gRbase 1.3.3. Note that RHugin now depends on gRbase rather than gRain.</li>
@@ -96,7 +97,7 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </p>
 
 <pre>
-    Sys.setenv(HUGINHOME = "/Applications/HDE7.2-lite")
+    Sys.setenv(HUGINHOME = "/Applications/HDE7.4-lite")
     install.packages("RHugin", repos = "http://R-Forge.R-project.org", type = "source")
 </pre>
 
@@ -107,16 +108,17 @@ Note that, as of version 0.7-12, the RHugin package dynamically links to the Hug
 <h4>Installing the RHugin Package on Microsoft Windows</h4>
 
 <p>
-A binary package is provided for Windows.
+Binary packages are provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (this package is compatible with Hugin 7.2)</li>
-<li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (this package is compatible with Hugin 7.3)</li>
+<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (built for Hugin 7.2)</li>
+<li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (built for Hugin 7.3)</li>
+<li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (built for Hugin 7.4)</li>
 </ul>
 
 <p>
-Use the "Install package(s) from local zip files..." item from the R Packages menu to install the package.
+Download the package corresponding to your version of Hugin then use the "Install package(s) from local zip files..." item from the R Packages menu to install the package.
 </p>
 
 <h2>Optional: Rgraphviz</h2>
@@ -128,11 +130,11 @@ RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in
 <h4>Microsoft Windows</h4>
 
 <p>
-Only certain versions of Graphviz are compatible with the Rgraphviz package. On Windows XP, Graphviz 2.20.3a seems to work consistently (I only have XP so can not test Vista and Windows 7).
+Only certain versions of Graphviz are compatible with the Rgraphviz package. The following instructions have been tested on Windows XP and Windows with R 2.12.0.
 
 <ol>
   <li>Download and install Graphviz 2.20.3a.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi</a></li></ul></li><br>
-  <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows PATH Environment Variable.</li><br>
+  <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
   <li>Start R.<br></li><br>
   <li>Install the Rgraphviz package using the <code>biocLite</code> function.<br>
     <pre>
@@ -146,7 +148,7 @@ Only certain versions of Graphviz are compatible with the Rgraphviz package. On 
 <h4>Mac OS X</h4>
 
 <p>
-The Rgraphviz package has an external dependency on Graphviz (<a href="http://www.graphviz.org">http://www.graphviz.org</a>) hence you need to install Graphviz on your computer before attempting to install the Rgraphviz package. You can download the latest version of Graphviz for Max OS X from the following link.
+The Rgraphviz package has an external dependency on Graphviz (<a href="http://www.graphviz.org">http://www.graphviz.org</a>), so you need to install Graphviz on your computer before installing the Rgraphviz package. You can download the latest version of Graphviz for Max OS X from the following link.
 </p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -157,15 +159,16 @@ Note that <b>snowleopard</b> refers to Mac OS X version 10.6 and <b>leopard</b> 
 <p>
 
 <p>
-Once Graphviz has been installed, run the following command in R to build and install the Rgraphviz package.
+Once Graphviz has been installed, run the following commands in R to build and install the Rgraphviz package.
 </p>
 
 <pre>
-  install.packages(&quot;Rgraphviz&quot;, repos = &quot;http://www.bioconductor.org&quot;, type = &quot;source&quot;)
+  source(&quot;http://bioconductor.org/biocLite.R&quot;)
+  biocLite(&quot;Rgraphviz&quot;, type = &quot;source&quot;)
 </pre>
 
 <p>
-It is also possible to install Rgraphviz using Bioconductor's <code>biocLite</code> function which will install a binary package.  The binary package is built for a specific version of Graphviz and if that version does not match the version on your computer, it may cause problems.  
+Note: if you do not have the developer tools installed, you can omit the <i>type</i> argument to install the binary version of the Rgraphviz package. The binary package is built for a specific version of Graphviz and if that version does not match the version on your computer, it may cause problems (although I haven't noticed any yet).  
 </p>
 
 <h4>Linux and other *nix</h4>

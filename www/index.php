@@ -33,7 +33,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides a platform for building and making inference from Bayesian belief networks by integrating the Hugin Decision Engine into the R environment for statistical computing.  The Hugin Decision Engine is commercial software and is required in order to use the RHugin package.  Information about Hugin is available from the Hugin website: <a href="http://www.hugin.com">www.hugin.com</a>.  Since a Hugin license is required, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their Hugin workflow.  For those interested in evaluating Hugin, a trial version of Hugin called Hugin Lite is available.
+The RHugin package provides a platform for building and making inference from Bayesian belief networks by implementing an R interface for the Hugin Decision Engine (HDE).  The HDE is commercial software and is required in order to use the RHugin package.  Information about Hugin is available from the Hugin website: <a href="http://www.hugin.com">www.hugin.com</a>.  Since Hugin is required, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their Hugin workflow.  For those interested in evaluating Hugin, a trial version of Hugin called Hugin Lite is available.
 
 <br><br>
 
@@ -67,15 +67,24 @@ If your Hugin installation is in a non-standard location, you must set the <code
 <h4>Dependencies</h4>
 
 <p>
-The RHugin package depends on the <code>graph</code> and <code>gRbase</code> packages.  These two packages (and their dependencies) are available on CRAN.  Run the command
+The RHugin package depends on the <code>gRbase</code> and <code>graph</code> packages.  In R, run the command
 </p>
 
 <pre>
-    install.packages(c("graph", "gRbase"))
+  install.packages("gRbase")
 </pre>
 
 <p>
-in R to install them before installing the RHugin package.
+to install the <code>gRbase</code> package from CRAN and then the commands
+</p>
+
+<pre>
+  source(&quot;http://bioconductor.org/biocLite.R&quot;)
+  biocLite(&quot;graph&quot;)
+</pre>
+
+<p>
+to install the <code>graph</code> package from Bioconductor.
 </p>
 
 
@@ -86,8 +95,8 @@ Linux users can install the package using the <code>install.packages</code> func
 </p>
 
 <pre>
-    Sys.setenv(HUGINHOME = "/usr/local/hugin")
-    install.packages("RHugin", repos = "http://R-Forge.R-project.org")
+  Sys.setenv(HUGINHOME = "/usr/local/hugin")
+  install.packages("RHugin", repos = "http://R-Forge.R-project.org")
 </pre>
 
 <h4>Installing the RHugin Package on Mac OS X</h4>
@@ -97,8 +106,8 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </p>
 
 <pre>
-    Sys.setenv(HUGINHOME = "/Applications/HDE7.4-lite")
-    install.packages("RHugin", repos = "http://R-Forge.R-project.org", type = "source")
+  Sys.setenv(HUGINHOME = "/Applications/HDE7.4-lite")
+  install.packages("RHugin", repos = "http://R-Forge.R-project.org", type = "source")
 </pre>
 
 <p>
@@ -127,23 +136,36 @@ Download the package corresponding to your version of Hugin then use the "Instal
 RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in hkb and NET files.
 </p>
 
-<h4>Microsoft Windows</h4>
+<h4>Microsoft Windows XP</h4>
 
 <p>
-Only certain versions of Graphviz are compatible with the Rgraphviz package. The following instructions have been tested on Windows XP and Windows with R 2.12.0.
+I was able to install Rgraphviz on Windows XP using the following steps but, since I no longer have a computer with Windows XP, I haven't been able to test these instructions with R 2.13.0. Hence your milage may vary.
 
 <ol>
   <li>Download and install Graphviz 2.20.3a.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi</a></li></ul></li><br>
   <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
-  <li>Start R.<br></li><br>
   <li>Install the Rgraphviz package using the <code>biocLite</code> function.<br>
     <pre>
-      source(&quot;http://bioconductor.org/biocLite.R&quot;)
-      biocLite(&quot;Rgraphviz&quot;)
+    source(&quot;http://bioconductor.org/biocLite.R&quot;)
+    biocLite(&quot;Rgraphviz&quot;)
     </pre>
   </li>
 </ol>
 </p>
+
+
+<h4>Microsoft Windows 7 (64bit)</h4>
+
+<p>
+Presently I have only been successful in running 32bit R and Graphviz on Windows 7 (64bit).  The binary version of the Rgraphviz package linked to below contains a modified build (the <code>agwrite</code> function causes R to crash so was removed) of the Rgraphviz package made using Graphviz 2.28.0 and R 2.13.0.
+
+<ol>
+  <li>Download and install Graphviz 2.28.0.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi</a></li></ul></li><br>
+  <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files (x86)\Graphviz 2.28\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
+  <li>Download the modified <a href="binary/Windows/Rgraphviz_1.30.1.zip">Rgraphviz</a> package and install it using the "Install package(s) from local zip files..." item from the R Packages menu.</li>
+</ol>
+</p>
+
 
 <h4>Mac OS X</h4>
 

@@ -12,7 +12,7 @@
       HuginDllPaths <- paste(Sys.getenv("PROGRAMFILES"),
                             "Hugin Expert",
                              HuginVersions,
-                            "HDE7.4C\\Lib\\VC8\\Release\\hugin2-7.4-vc8.dll",
+                            "HDE7.4C\\Lib\\VC10\\Release\\hugin2-7.4-vc10.dll",
                              sep = "\\")
 
       if(length(HuginVersion <- which(file.exists(HuginDllPaths)))) {
@@ -22,14 +22,14 @@
         HuginPath <- paste(Sys.getenv("PROGRAMFILES"),
                           "Hugin Expert",
                            HuginVersion,
-                          "HDE7.4C\\Lib\\VC8\\Release",
+                          "HDE7.4C\\Lib\\VC10\\Release",
                            sep = "\\")
 
         Sys.setenv(PATH = paste(path, HuginPath, sep= ";"))
       }
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        warning("RHugin did not find Hugin in the standard location")
       }
     }
   }
@@ -38,19 +38,19 @@
 
     if(nchar(Sys.getenv("HUGINHOME")) == 0) {
 
-      files <- list.files("/Applications")
+      HuginHomes <- list.files("/Applications", pattern = "*HDE7.4*",
+                                full.names = TRUE)
 
-      if(length(HuginDir <- files[grep("HDE", files)])) {
-        HuginHome <- paste("/Applications", HuginDir[1], sep = "/")
-
-        if(length(HuginDir) >= 2)
-          warning("using HUGINHOME:", HuginHome)
-
-        Sys.setenv(HUGINHOME = HuginHome)
-      }
+      if(!length(HuginHomes))
+        warning("RHugin did not find Hugin in the standard location")
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        HuginHome <- HuginHomes[1]
+
+        if(length(HuginHomes) > 1)
+          warning("multiple Hugin Installations found, using: ", HuginHome)
+
+        Sys.setenv(HUGINHOME = HuginHome)
       }
     }
   }
@@ -61,7 +61,7 @@
         Sys.setenv(HUGINHOME = "/usr/local/hugin")
 
       else {
-        warning("RHugin did not find Hugin in the expected location")
+        warning("RHugin did not find Hugin in the standard location")
       }
     }
   }

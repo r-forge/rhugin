@@ -111,19 +111,20 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </pre>
 
 <p>
-Note that, as of version 0.7-12, the RHugin package dynamically links to the Hugin Decision Engine hence Hugin 7.2 or later is required.
+As of version 0.7-12, the RHugin package dynamically links to the Hugin Decision Engine hence Hugin 7.2 or later is required.
 </p>
 
 <h4>Installing the RHugin Package on Microsoft Windows</h4>
 
 <p>
-Binary packages are provided for Windows.
+Binary packages for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (built for Hugin 7.2)</li>
-<li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (built for Hugin 7.3)</li>
-<li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (built for Hugin 7.4)</li>
+<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (Hugin 7.2)</li>
+<li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (Hugin 7.3)</li>
+<li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (Hugin 7.4, R 2.12.2, Windows XP)</li>
+<li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
 </ul>
 
 <p>

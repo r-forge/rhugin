@@ -33,7 +33,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The RHugin package provides a platform for building and making inference from Bayesian belief networks by implementing an R interface for the Hugin Decision Engine (HDE).  The HDE is commercial software and is required in order to use the RHugin package.  Information about Hugin is available from the Hugin website: <a href="http://www.hugin.com">www.hugin.com</a>.  Since Hugin is required, the target audience for this package is Hugin users who would like to integrate the statistical and programatic capabilities of R into their Hugin workflow.  For those interested in evaluating Hugin, a trial version of Hugin called Hugin Lite is available.
+The Hugin Decision Engine (HDE) is commercial software produced by <a href="http://www.hugin.com">HUGIN EXPERT A/S</a> for building and making inference from Bayesian belief networks.  The RHugin package provides a suite of functions allowing the HDE to be controlled from within the R environment for statistical computing.  The RHugin package can thus be used to build Bayesian belief networks, enter and propagate evidence, and to retrieve beliefs.  Additionally, the RHugin package can read and write hkb and NET files, making it easy to work simultaneously with both the RHugin package and the Hugin GUI.  A licensed copy of the HDE (or the trial version) is required for the RHugin package to function, hence the target audience for the package is Hugin users who would like to take advantage of the statistical and programatic capabilities of R.
 
 <br><br>
 
@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2011-06-15: RHugin 7.5 released.</li>
 <li>2010-11-13: RHugin 7.4 released.</li>
 <li>2010-04-12: RHugin 7.3-1 released. From now on the package version will match the Hugin release.</li>
 <li>2010-03-23: RHugin 0.9-1 released.  All the planned features for the RHugin package have been implemented.</li>
@@ -60,7 +61,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>Installation</h2>
 
 <p>
-If your Hugin installation is in a non-standard location, you must set the <code>HUGINHOME</code> environment variable in order to use the package (see the <a href="http://www.hugin.com/developer/documentation/api-manuals">Hugin API Reference Manual</a>).  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions below.
+If you do not have Hugin installed in the default location, you will need to set the <code>HUGINHOME</code> environment variable in order to use the RHugin package (see the <a href="http://www.hugin.com/developer/documentation/api-manuals">Hugin API Reference Manual</a>).  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions below.
 </p>
 
 
@@ -106,7 +107,7 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </p>
 
 <pre>
-  Sys.setenv(HUGINHOME = "/Applications/HDE7.4-lite")
+  Sys.setenv(HUGINHOME = "/Applications/HDE7.5-lite")
   install.packages("RHugin", repos = "http://R-Forge.R-project.org", type = "source")
 </pre>
 
@@ -125,6 +126,7 @@ Binary packages for Windows.
 <li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (Hugin 7.3)</li>
 <li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (Hugin 7.4, R 2.12.2, Windows XP)</li>
 <li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.5.zip">RHugin_7.5.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
 </ul>
 
 <p>

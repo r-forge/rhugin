@@ -139,33 +139,16 @@ Download the package corresponding to your version of Hugin then use the "Instal
 RHugin uses the Rgraphviz package to plot Hugin domains and to position nodes in hkb and NET files.
 </p>
 
-<h4>Microsoft Windows XP</h4>
+
+<h4>Microsoft Windows</h4>
 
 <p>
-I was able to install Rgraphviz on Windows XP using the following steps but, since I no longer have a computer with Windows XP, I haven't been able to test these instructions with R 2.13.0. Hence your milage may vary.
-
-<ol>
-  <li>Download and install Graphviz 2.20.3a.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.20.3a.msi</a></li></ul></li><br>
-  <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files\Graphviz2.20\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
-  <li>Install the Rgraphviz package using the <code>biocLite</code> function.<br>
-    <pre>
-    source(&quot;http://bioconductor.org/biocLite.R&quot;)
-    biocLite(&quot;Rgraphviz&quot;)
-    </pre>
-  </li>
-</ol>
-</p>
-
-
-<h4>Microsoft Windows 7 (64bit)</h4>
-
-<p>
-Presently I have only been successful in running 32bit R and Graphviz on Windows 7 (64bit).  The binary version of the Rgraphviz package linked to below contains a modified build (the <code>agwrite</code> function causes R to crash so was removed) of the Rgraphviz package made using Graphviz 2.28.0 and R 2.13.0.
+The Rgraphviz package is quite sensitive to the specific versions of Graphviz and R installed on the computer. The binary package provided here was built using Graphviz 2.28.0 and R 2.13.x and has been tested on Windows XP, Vista, and 7.
 
 <ol>
   <li>Download and install Graphviz 2.28.0.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi</a></li></ul></li><br>
   <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files (x86)\Graphviz 2.28\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
-  <li>Download the modified <a href="binary/Windows/Rgraphviz_1.30.1.zip">Rgraphviz</a> package and install it using the "Install package(s) from local zip files..." item from the R Packages menu.</li>
+  <li>Download the <a href="binary/Windows/Rgraphviz_1.30.1.zip">Rgraphviz</a> binary package and install it using the "Install package(s) from local zip files..." item from the R Packages menu.</li>
 </ol>
 </p>
 

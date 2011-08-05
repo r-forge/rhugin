@@ -1,6 +1,10 @@
 #include "RHugin.h"
 #include "RHuginLink.h"
 
+#ifndef WIN32
+  #include "pthread.h"
+#endif
+
 /* Global variables defined in RHugin.c */
 
 extern SEXP RHugin_domain_tag;
@@ -32,6 +36,7 @@ extern SEXP RHUGIN_TM_CLIQUE_SIZE;
 extern SEXP RHUGIN_TM_CLIQUE_WEIGHT;
 extern SEXP RHUGIN_TM_FILL_IN_SIZE;
 extern SEXP RHUGIN_TM_FILL_IN_WEIGHT;
+extern SEXP RHUGIN_TM_BEST_GREEDY;
 extern SEXP RHUGIN_TM_TOTAL_WEIGHT;
 
 extern SEXP RHUGIN_EQUILIBRIUM_SUM;
@@ -53,7 +58,7 @@ extern SEXP RHUGIN_CONSTRAINT_BACKWARD_EDGE_FORBIDDEN;
   * The Hugin API 
 *******************************************************************************/
 
-/* Section 1.6 Errors */
+/* 1.6 Errors */
 
 SEXP RHugin_error_code(void)
 {
@@ -66,7 +71,7 @@ SEXP RHugin_error_code(void)
 }
 
 
-/* Section 1.6.1 Handling errors */
+/* 1.6.1 Handling errors */
 
 SEXP RHugin_error_name(SEXP Scode)
 {
@@ -92,22 +97,23 @@ SEXP RHugin_error_description(SEXP Scode)
 }
 
 
-/* Section 1.7 Taking advantage of multiple processors */
+/* 1.7 Taking advantage of multiple processors */
 
 SEXP RHugin_domain_set_concurrency_level(SEXP Sdomain, SEXP Slevel)
 {
-  h_status_t status = 0;
+  size_t level = -1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Slevel = AS_INTEGER(Slevel));
-  status = h_domain_set_concurrency_level(domain, (size_t) INTEGER(Slevel)[0]);
-
-  if((h_error_t) status != h_error_none) {
-    UNPROTECT(1);
-    RHugin_handle_error_code((h_error_t) status);
-  }
-
+  level = (size_t) INTEGER(Slevel)[0];
   UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_set_concurrency_level(domain, level));
+
+#ifndef WIN32
+  pthread_setconcurrency((int) level);
+#endif
+  
   return R_NilValue;
 }
   
@@ -129,18 +135,15 @@ SEXP RHugin_domain_get_concurrency_level(SEXP Sdomain)
 
 SEXP RHugin_domain_set_grain_size(SEXP Sdomain, SEXP Ssize)
 {
-  h_status_t status = 0;
+  size_t size = -1;
   h_domain_t domain = domainPointerFromSEXP(Sdomain);
 
   PROTECT(Ssize = AS_INTEGER(Ssize));
-  status = h_domain_set_grain_size(domain, (size_t) INTEGER(Ssize)[0]);
-
-  if((h_error_t) status != h_error_none) {
-    UNPROTECT(1);
-    RHugin_handle_error_code((h_error_t) status);
-  }
-
+  size = (size_t) INTEGER(Ssize)[0];
   UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_set_grain_size(domain, size));
+
   return R_NilValue;
 }
 
@@ -160,8 +163,7 @@ SEXP RHugin_domain_get_grain_size(SEXP Sdomain)
 }
 
 
-
-/* Section 2.2 Domains: Creation and deletion */
+/* 2.2 Domains: Creation and deletion */
 
 SEXP RHugin_new_domain(void)
 {
@@ -208,7 +210,7 @@ SEXP RHugin_domain_clone(SEXP Sdomain)
 }
 
 
-/* Section 2.3 Nodes: Creation and deletion */
+/* 2.3 Nodes: Creation and deletion */
 
 SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 {
@@ -251,7 +253,7 @@ SEXP RHugin_domain_new_node(SEXP Sdomain, SEXP Scategory, SEXP Skind)
 }
 
 
-// SEXP RHugin_node_get_domain(SEXP Snode)
+// SEXP RHugin_node_get_domain(SEXP Snode);
 
 
 SEXP RHugin_node_get_category(SEXP Snodes)
@@ -340,6 +342,9 @@ SEXP RHugin_node_get_kind(SEXP Snodes)
 }
 
 
+// SEXP RHugin_node_set_category(SEXP Snode);
+
+
 SEXP RHugin_node_delete(SEXP Snodes)
 {
   int i = 0, n = LENGTH(Snodes);
@@ -369,7 +374,7 @@ SEXP RHugin_node_clone(SEXP Snode)
 }
 
 
-/* Section 2.4 The links of the network */
+/* 2.4 The links of the network */
 
 SEXP RHugin_node_add_parent(SEXP Schild, SEXP Sparents)
 {
@@ -525,7 +530,117 @@ SEXP RHugin_node_get_children(SEXP Snodes)
 }
 
 
-/* Section 2.5 The number of states of a node */
+/* 2.4.1 The requisite parents and ancestors of decision nodes */
+
+SEXP RHugin_node_get_requisite_parents(SEXP Snodes)
+{
+  SEXP ret = R_NilValue, child = R_NilValue, names = R_NilValue;
+  h_node_t node = NULL;
+  h_error_t error_code = h_error_none;
+  h_node_t *req_parents = NULL, *parent = NULL;
+  int i = 0, j = 0, n_parents = 0, n = LENGTH(Snodes);
+  
+  PROTECT(ret = allocVector(VECSXP, n));
+  
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    req_parents = h_node_get_requisite_parents(node);
+    
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+    
+    if(req_parents) {
+      n_parents = 0;
+      for(parent = req_parents; *parent != NULL; parent++) n_parents++;
+      
+      PROTECT(child = allocVector(VECSXP, n_parents));
+      PROTECT(names = allocVector(STRSXP, n_parents));
+      
+      for(j = 0; j < n_parents; j++) {
+        SET_VECTOR_ELT(child, j, R_MakeExternalPtr(req_parents[j], RHugin_node_tag, R_NilValue));
+        SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(req_parents[j])));
+        
+        error_code = h_error_code();
+        if(error_code != h_error_none) {
+          UNPROTECT(2);
+          RHugin_handle_error_code(error_code);
+        }
+      }
+      setAttrib(child, R_NamesSymbol, names);
+      
+      SET_VECTOR_ELT(ret, i, child);
+      UNPROTECT(2);
+    }
+    
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+  
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+SEXP RHugin_node_get_requisite_ancestors(SEXP Snodes)
+{
+  SEXP ret = R_NilValue, child = R_NilValue, names = R_NilValue;
+  h_node_t node = NULL;
+  h_error_t error_code = h_error_none;
+  h_node_t *req_ancestors = NULL, *ancestor = NULL;
+  int i = 0, j = 0, n_ancestors = 0, n = LENGTH(Snodes);
+  
+  PROTECT(ret = allocVector(VECSXP, n));
+  
+  for(i = 0; i < n; i++) {
+    node = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    req_ancestors = h_node_get_requisite_ancestors(node);
+    
+    error_code = h_error_code();
+    if(error_code != h_error_none) {
+      UNPROTECT(1);
+      RHugin_handle_error_code(error_code);
+    }
+    
+    if(req_ancestors) {
+      n_ancestors = 0;
+      for(ancestor = req_ancestors; *ancestor != NULL; ancestor++) n_ancestors++;
+      
+      PROTECT(child = allocVector(VECSXP, n_ancestors));
+      PROTECT(names = allocVector(STRSXP, n_ancestors));
+      
+      for(j = 0; j < n_ancestors; j++) {
+        SET_VECTOR_ELT(child, j, R_MakeExternalPtr(req_ancestors[j], RHugin_node_tag, R_NilValue));
+        SET_STRING_ELT(names, j, mkChar( (char*) h_node_get_name(req_ancestors[j])));
+        
+        error_code = h_error_code();
+        if(error_code != h_error_none) {
+          UNPROTECT(2);
+          RHugin_handle_error_code(error_code);
+        }
+      }
+      setAttrib(child, R_NamesSymbol, names);
+      
+      SET_VECTOR_ELT(ret, i, child);
+      UNPROTECT(2);
+    }
+    
+    else
+      SET_VECTOR_ELT(ret, i, R_NilValue);
+  }
+  
+  setAttrib(ret, R_NamesSymbol, getAttrib(Snodes, R_NamesSymbol));
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+/* 2.5 The number of states of a node */
 
 SEXP RHugin_node_set_number_of_states(SEXP Snode, SEXP Sstates)
 {
@@ -557,7 +672,7 @@ SEXP RHugin_node_get_number_of_states(SEXP Snode)
 }
 
 
-/* Section 2.6 The conditional probability and the utility table */
+/* 2.6 The conditional probability and the utility table */
 
 SEXP RHugin_node_get_table(SEXP Snode)
 {
@@ -752,7 +867,7 @@ SEXP RHugin_node_get_gamma(SEXP Snode, SEXP Si)
 }
 
 
-/* Section 2.7 The name of a node */
+/* 2.7 The name of a node */
 
 SEXP RHugin_node_set_name(SEXP Snode, SEXP Sname)
 {
@@ -810,7 +925,7 @@ SEXP RHugin_domain_get_node_by_name(SEXP Sdomain, SEXP Snames)
 }
 
 
-/* Section 2.8 Iterating through the nodes of a domain */
+/* 2.8 Iterating through the nodes of a domain */
 
 SEXP RHugin_domain_get_first_node(SEXP Sdomain)
 {
@@ -856,12 +971,16 @@ SEXP RHugin_node_get_next(SEXP Snode)
 }
 
 
-/* Section 2.9 User data */
+/* 2.9.1 Arbitrary user data */
 
 // SEXP RHugin_node_set_user_data(SEXP Snode, SEXP Sdata);
 // SEXP RHugin_node_get_user_data(SEXP Snode);
 // SEXP RHugin_domain_set_user_data(SEXP Sdomain, SEXP Sdata);
 // SEXP RHugin_domain_get_user_data(SEXP Sdomain);
+
+
+/* 2.9.2 User-defined attributes */
+
 // SEXP RHugin_node_set_attribute(SEXP Snode, SEXP Skey, SEXP Svalue);
 // SEXP RHugin_node_get_attribute(SEXP Snode, SEXP Skey);
 // SEXP RHugin_domain_set_attribute(SEXP Sdomain, SEXP Skey, SEXP Svalue);
@@ -873,7 +992,7 @@ SEXP RHugin_node_get_next(SEXP Snode)
 // SEXP RHugin_attribute_get_value(SEXP Sattribute);
 
 
-/* Section 2.10 HUGIN Knowledge Base files */
+/* 2.10 HUGIN Knowledge Base files */
 
 SEXP RHugin_domain_save_as_kb(SEXP Sdomain, SEXP Sfile_name, SEXP Spassword)
 {
@@ -912,6 +1031,15 @@ SEXP RHugin_kb_load_domain(SEXP Sfile_name, SEXP Spassword)
 
   return ret;
 }
+
+
+/* 4.1 What is a table? */
+
+// SEXP RHugin_table_get_index_from_configuration(SEXP Stable,
+//                                                SEXP Sconfiguration);
+// SEXP RHugin_table_get_configuration_from_index(SEXP Stable,
+//                                                SEXP Sconfiguration,
+//                                                SEXP Sindex);
 
 
 /* 4.2 The nodes and the contents of a table */
@@ -1090,6 +1218,8 @@ SEXP RHugin_table_get_variance(SEXP Stable, SEXP Si, SEXP Snode)
 }
 
 
+/* 4.3 Deleting tables */
+
 SEXP RHugin_table_delete(SEXP Stable)
 {
   RHugin_handle_status_code(h_table_delete(tablePointerFromSEXP(Stable)));
@@ -1097,6 +1227,8 @@ SEXP RHugin_table_delete(SEXP Stable)
   return R_NilValue;
 }
 
+
+/* 4.4 The size of a table */
 
 SEXP RHugin_table_get_size(SEXP Stable)
 {
@@ -1128,6 +1260,8 @@ SEXP RHugin_table_get_cg_size(SEXP Stable)
 }
 
 
+/* 4.5 Rearranging the contents of a table */
+
 SEXP RHugin_table_reorder_nodes(SEXP Stable, SEXP Sorder)
 {
   h_node_t *order = NULL;
@@ -1144,6 +1278,8 @@ SEXP RHugin_table_reorder_nodes(SEXP Stable, SEXP Sorder)
   return R_NilValue;
 }
 
+
+/* 5.1 Subtyping of discrete nodes */
 
 SEXP RHugin_node_set_subtype(SEXP Snode, SEXP Ssubtype)
 {
@@ -1214,13 +1350,25 @@ SEXP RHugin_node_get_subtype(SEXP Snodes)
 }
 
 
+/* 5.2 Expressions */
 
-/* Section 5.2 Expressions */
+// SEXP RHugin_node_make_expression(SEXP Snode);
+// SEXP RHugin_label_make_expression(SEXP Slabel);
+// SEXP RHugin_boolean_make_expression(SEXP Sb);
+// SEXP RHugin_number_make_expression(SEXP Snumber);
+// SEXP RHugin_make_composite_expression(SEXP Soperator, SEXP Sarguments);
+// SEXP RHugin_expression_is_composite(SEXP Se);
+// SEXP RHugin_expression_get_operator(SEXP Se);
+// SEXP RHugin_expression_get_operands(SEXP Se);
+// SEXP RHugin_expression_get_node(SEXP Se);
+// SEXP RHugin_expression_get_number(SEXP Se);
+// SEXP RHugin_expression_get_label(SEXP Se);
+// SEXP RHugin_expression_get_boolean(SEXP Se);
+// SEXP RHugin_expression_delete(SEXP Se);
+// SEXP RHugin_expression_clone(SEXP Se);
 
-// Removed by Kjell Konis 16.10.2009
 
-
-/* Section 5.3 Syntax for expression */
+/* 5.3 Syntax for expression */
 
 SEXP RHugin_string_parse_expression(SEXP Sstring, SEXP Smodel)
 {
@@ -1262,7 +1410,7 @@ SEXP RHugin_expression_to_string(SEXP Sexpression)
 }
 
 
-/* Section 5.4 Creating and maintaining models */
+/* 5.4 Creating and maintaining models */
 
 SEXP RHugin_node_new_model(SEXP Snode, SEXP Smodel_nodes)
 {
@@ -1428,7 +1576,7 @@ SEXP RHugin_model_get_expression(SEXP Smodel, SEXP Sindex)
 }
 
 
-/* Section 5.5 State labels */
+/* 5.5 State labels */
 
 SEXP RHugin_node_set_state_label(SEXP Snode, SEXP Ss, SEXP Slabels)
 {
@@ -1506,7 +1654,7 @@ SEXP RHugin_node_get_state_index_from_label(SEXP Snode, SEXP Slabels)
 }
 
 
-/* Section 5.6 State values */
+/* 5.6 State values */
 
 SEXP RHugin_node_set_state_value(SEXP Snode, SEXP Ss, SEXP Svalues)
 {
@@ -1607,7 +1755,7 @@ SEXP RHugin_node_get_state_index_from_value(SEXP Snode, SEXP Svalues)
 }
 
 
-/* Section 5.8 Generating tables */
+/* 5.8 Generating tables */
 
 SEXP RHugin_node_generate_table(SEXP Snodes)
 {
@@ -1628,11 +1776,11 @@ SEXP RHugin_domain_generate_tables(SEXP Sdomain)
 }
 
 
-// SEXP RHugin_class_generate_tables(SEXP Sclass)
-// SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file)
+// SEXP RHugin_class_generate_tables(SEXP Sclass);
+// SEXP RHugin_class_set_log_file(SEXP Sclass, SEXP Slog_file);
 
 
-/* Section 5.9 How the computations are done */
+/* 5.9 How the computations are done */
 
 SEXP RHugin_model_set_number_of_samples_per_interval(SEXP Smodel, SEXP Scount)
 {
@@ -1664,7 +1812,7 @@ SEXP RHugin_model_get_number_of_samples_per_interval(SEXP Smodel)
 }
 
 
-/* Section 6.2 Compilation */
+/* 6.2 Compilation */
 
 SEXP RHugin_domain_compile(SEXP Sdomain)
 {
@@ -1691,6 +1839,8 @@ SEXP RHugin_domain_is_compiled(SEXP Sdomain)
   return ret;
 }
 
+
+/* 6.3 Triangulation */
 
 SEXP RHugin_domain_set_max_number_of_separators(SEXP Sdomain, SEXP Scount)
 {
@@ -1732,9 +1882,13 @@ SEXP RHugin_domain_triangulate(SEXP Sdomain, SEXP Smethod)
   if(asChar(Smethod) == RHUGIN_TM_CLIQUE_SIZE)
     method = h_tm_clique_size;
   else if(asChar(Smethod) == RHUGIN_TM_CLIQUE_WEIGHT)
-    method = h_tm_fill_in_weight;
-  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_SIZE)
     method = h_tm_clique_weight;
+  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_SIZE)
+    method = h_tm_fill_in_size;
+  else if(asChar(Smethod) == RHUGIN_TM_FILL_IN_WEIGHT)
+    method = h_tm_fill_in_weight;
+  else if(asChar(Smethod) == RHUGIN_TM_BEST_GREEDY)
+    method = h_tm_best_greedy;
   else if(asChar(Smethod) == RHUGIN_TM_TOTAL_WEIGHT)
     method = h_tm_total_weight;
 
@@ -1813,16 +1967,16 @@ SEXP RHugin_domain_get_elimination_order(SEXP Sdomain)
 }
 
 
-// SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata)
-// SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata)
+// SEXP RHugin_domain_parse_nodes(SEXP Sdomain, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
+// SEXP RHugin_class_parse_nodes(SEXP Sclass, SEXP Sfile_name, SEXP Serror_fun, SEXP Sdata);
 
 
-/* Section 6.4 Getting a compilation log */
+/* 6.4 Getting a compilation log */
 
 // SEXP RHugin_domain_set_log_file(SEXP Sdomain, SEXP Slog_file)
 
 
-/* Section 6.5 Uncompilation */
+/* 6.5 Uncompilation */
 
 SEXP RHugin_domain_uncompile(SEXP Sdomain)
 {
@@ -1832,7 +1986,7 @@ SEXP RHugin_domain_uncompile(SEXP Sdomain)
 }
 
 
-/* Section 6.5 Compression */
+/* 6.6 Compression */
 
 SEXP RHugin_domain_compress(SEXP Sdomain)
 {
@@ -1862,7 +2016,7 @@ SEXP RHugin_domain_is_compressed(SEXP Sdomain)
 }
 
 
-/* Section 6.7 Approximation */
+/* 6.7 Approximation */
 
 SEXP RHugin_domain_approximate(SEXP Sdomain, SEXP Sepsilon)
 {
@@ -1895,7 +2049,7 @@ SEXP RHugin_domain_get_approximation_constant(SEXP Sdomain)
 }
 
 
-/* Section 7.2 Junction trees */
+/* 7.2 Junction trees */
 
 SEXP RHugin_domain_get_first_junction_tree(SEXP Sdomain)
 {
@@ -1999,7 +2153,37 @@ SEXP RHugin_jt_get_root(SEXP Sjt)
 }
 
 
-/* Section 7.3 Cliques */
+SEXP RHugin_jt_get_total_size(SEXP Sjt)
+{
+  SEXP ret = R_NilValue;
+  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_jt_get_total_size(jt);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+SEXP RHugin_jt_get_total_cg_size(SEXP Sjt)
+{
+  SEXP ret = R_NilValue;
+  h_junction_tree_t jt = jtPointerFromSEXP(Sjt);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_jt_get_total_cg_size(jt);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+/* 7.3 Cliques */
 
 SEXP RHugin_clique_get_members(SEXP Sclique)
 {
@@ -2059,7 +2243,7 @@ SEXP RHugin_clique_get_neighbors(SEXP Sclique)
 }
 
 
-/* Section 8.2 Entering evidence */
+/* 8.2 Entering evidence */
 
 SEXP RHugin_node_select_state(SEXP Snode, SEXP Sstate)
 {
@@ -2119,7 +2303,7 @@ SEXP RHugin_node_enter_value(SEXP Snode, SEXP Svalue)
 }
 
 
-/* Section 8.3 Retracting evidence */
+/* 8.3 Retracting evidence */
 
 SEXP RHugin_node_retract_findings(SEXP Snodes)
 {
@@ -2145,7 +2329,7 @@ SEXP RHugin_domain_retract_findings(SEXP Sdomain)
 }
 
 
-/* Section 8.4 Determining independence properties */
+/* 8.4 Determining independence properties */
 
 SEXP RHugin_domain_get_d_connected_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard, SEXP Ssoft)
 {
@@ -2246,7 +2430,7 @@ SEXP RHugin_domain_get_d_separated_nodes(SEXP Sdomain, SEXP Ssource, SEXP Shard,
 }
 
 
-/* Section 8.5 Retreiving beliefs */
+/* 8.5 Retreiving beliefs */
 
 SEXP RHugin_node_get_belief(SEXP Snode, SEXP Sstates)
 {
@@ -2344,7 +2528,7 @@ SEXP RHugin_node_get_distribution(SEXP Snode)
 }
 
 
-/* Section 8.6 Retrieving expected utilities */
+/* 8.6 Retrieving expected utilities */
 
 SEXP RHugin_node_get_expected_utility(SEXP Snode, SEXP Sstates)
 {
@@ -2373,7 +2557,27 @@ SEXP RHugin_node_get_expected_utility(SEXP Snode, SEXP Sstates)
 }
 
 
-/* Section 8.7 Examining Evidence */
+SEXP RHugin_domain_get_expected_utility(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = (double) h_domain_get_expected_utility(domain);
+  UNPROTECT(1);
+
+  RHugin_handle_error();
+
+  return ret;
+}
+
+
+/* 8.7 Computing function values */
+
+// SEXP RHugin_node_get_value(SEXP Snode);
+
+
+/* 8.8 Examining Evidence */
 
 SEXP RHugin_node_get_entered_finding(SEXP Snode, SEXP Sstates)
 {
@@ -2519,7 +2723,7 @@ SEXP RHugin_node_likelihood_is_propagated(SEXP Snode)
 }
 
 
-/* Section 8.8 Case files */
+/* 8.9 Case files */
 
 SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name)
 {
@@ -2531,10 +2735,10 @@ SEXP RHugin_domain_save_case(SEXP Sdomain, SEXP Sfile_name)
 }
 
 
-// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name)
+// SEXP RHugin_domain_parse_case(SEXP Sdomain, SEXP Sfile_name);
 
 
-/* Section 9.2 Propagation */
+/* 9.2 Propagation */
 
 SEXP RHugin_domain_propagate(SEXP Sdomain, SEXP Sequilibrium, SEXP Smode)
 {
@@ -2582,7 +2786,17 @@ SEXP RHugin_jt_propagate(SEXP Sjt, SEXP Sequilibrium, SEXP Smode)
 }
 
 
-/* Section 9.3 Conflict of evidence */
+/* 9.3 Inference in LIMIDs: Computing optimal policies */
+
+SEXP RHugin_domain_update_policies(SEXP Sdomain)
+{
+  RHugin_handle_status_code(h_domain_update_policies(domainPointerFromSEXP(Sdomain)));
+  
+  return R_NilValue;
+}
+
+
+/* 9.4 Conflict of evidence */
 
 SEXP RHugin_domain_get_conflict(SEXP Sdomain)
 {
@@ -2614,17 +2828,7 @@ SEXP RHugin_jt_get_conflict(SEXP Sjt)
 }
 
 
-SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
-{
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  RHugin_handle_status_code(h_domain_reset_inference_engine(domain));
-
-  return R_NilValue;
-}
-
-
-/* Secttion 9.4 The normalization constant */
+/* 9.5 The normalization constant */
 
 SEXP RHugin_domain_get_normalization_constant(SEXP Sdomain)
 {
@@ -2656,7 +2860,7 @@ SEXP RHugin_domain_get_log_normalization_constant(SEXP Sdomain)
 }
 
 
-/* Section 9.5 Initializing the domain */
+/* 9.6 Initializing the inference engine */
 
 SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 {
@@ -2664,6 +2868,16 @@ SEXP RHugin_domain_save_to_memory(SEXP Sdomain)
 
   RHugin_handle_status_code(h_domain_save_to_memory(domain));
 
+  return R_NilValue;
+}
+
+
+SEXP RHugin_domain_reset_inference_engine(SEXP Sdomain)
+{
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  
+  RHugin_handle_status_code(h_domain_reset_inference_engine(domain));
+  
   return R_NilValue;
 }
 
@@ -2678,7 +2892,7 @@ SEXP RHugin_domain_initialize(SEXP Sdomain)
 }
 
 
-/* Section 9.6 Querying the state of the inference engine */
+/* 9.7 Querying the state of the inference engine */
 
 SEXP RHugin_domain_equilibrium_is(SEXP Sdomain, SEXP Sequilibrium)
 {
@@ -2923,7 +3137,7 @@ SEXP RHugin_jt_tables_to_propagate(SEXP Sjt)
 }
 
 
-/* Section 9.7 Simulation */
+/* 9.8 Simulation */
 
 SEXP RHugin_domain_simulate(SEXP Sdomain)
 {
@@ -2961,6 +3175,21 @@ SEXP RHugin_node_get_sampled_value(SEXP Snode)
 
   RHugin_handle_error();
 
+  return ret;
+}
+
+
+SEXP RHugin_node_get_sampled_utility(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = (double) h_node_get_sampled_utility(node);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
   return ret;
 }
 
@@ -3012,7 +3241,7 @@ SEXP RHugin_domain_get_normal_deviate(SEXP Sdomain, SEXP Smean, SEXP Svariance)
 }
 
 
-/* Section 9.8 Value of information analysis */
+/* 9.9 Value of information analysis */
 
 SEXP RHugin_node_get_entropy(SEXP Snodes)
 {
@@ -3070,7 +3299,7 @@ SEXP RHugin_node_get_mutual_information(SEXP Snodes, SEXP Sothers)
 }
 
 
-/* Section 9.9 Sensitivity analyis */
+/* Section 9.10 Sensitivity analyis */
 
 SEXP RHugin_node_compute_sensitivity_data(SEXP Snode, SEXP Sstate)
 {
@@ -3157,7 +3386,202 @@ SEXP RHugin_domain_get_sensitivity_set(SEXP Sdomain)
 }
 
 
-/* Section 10.1 Experience counts and fading factors */
+SEXP RHugin_domain_compute_sensitivity_data(SEXP Sdomain, SEXP Snodes, SEXP Sstates)
+{
+  h_node_t *nodes = NULL;
+  size_t *states = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  int i = 0, n_nodes = LENGTH(Snodes), *p_Sstates = NULL;
+
+  PROTECT(Sstates = AS_INTEGER(Sstates));
+  p_Sstates = INTEGER(Sstates);
+
+  nodes = (h_node_t*) R_alloc(n_nodes + 1, sizeof(h_node_t));
+  states = (size_t*) R_alloc(n_nodes, sizeof(size_t));
+
+  for(i = 0; i < n_nodes; i++) {
+    nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+    states[i] = (size_t) p_Sstates[i];
+  }
+  nodes[n_nodes] = NULL;
+
+  UNPROTECT(1);
+
+  RHugin_handle_status_code(h_domain_compute_sensitivity_data(domain, nodes, states));
+
+  return R_NilValue;
+}
+
+
+SEXP RHugin_node_get_sensitivity_constants_by_output(SEXP Snode, SEXP Sinput, SEXP Soutput)
+{
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_status_t status = 0;
+  double *constants = NULL;
+  h_number_t *pret = NULL;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+
+  PROTECT(Sinput = AS_INTEGER(Sinput));
+  PROTECT(Soutput = AS_INTEGER(Soutput));
+  PROTECT(ret = allocVector(REALSXP, 4));
+  constants = REAL(ret);
+  PROTECT(names = allocVector(STRSXP, 4));
+
+  pret = (h_number_t*) R_alloc(4, sizeof(h_number_t));
+
+  status = h_node_get_sensitivity_constants_by_output(node,
+                                                      (size_t) INTEGER(Sinput)[0],
+                                                      (size_t) INTEGER(Soutput)[0],
+                                                      pret, pret + 1, pret + 2, pret + 3);
+
+  constants[0] = (double) pret[0];
+  SET_STRING_ELT(names, 0, mkChar("alpha"));
+  constants[1] = (double) pret[1];
+  SET_STRING_ELT(names, 1, mkChar("beta"));
+  constants[2] = (double) pret[2];
+  SET_STRING_ELT(names, 2, mkChar("gamma"));
+  constants[3] = (double) pret[3];
+  SET_STRING_ELT(names, 3, mkChar("delta"));
+  setAttrib(ret, R_NamesSymbol, names);
+
+  UNPROTECT(4);
+
+  RHugin_handle_status_code(status);
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_sensitivity_set_by_output(SEXP Sdomain, SEXP Soutput)
+{
+  SEXP ret = R_NilValue, names = R_NilValue;
+  h_error_t error_code = h_error_none;
+  h_node_t *sensitivity_set = NULL, *pnode = NULL;
+  int i = 0, n = 0;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+
+  PROTECT(Soutput = AS_INTEGER(Soutput));
+
+  sensitivity_set = h_domain_get_sensitivity_set_by_output(domain, INTEGER(Soutput)[0]);
+  RHugin_handle_error();
+  
+  if(sensitivity_set) {
+    for(pnode = sensitivity_set; *pnode != NULL; pnode++) n++;
+    
+    PROTECT(ret = allocVector(VECSXP, n));
+    PROTECT(names = allocVector(STRSXP, n));
+    
+    for(i = 0; i < n; i++) {
+      SET_VECTOR_ELT(ret, i, R_MakeExternalPtr(sensitivity_set[i], RHugin_node_tag, R_NilValue));
+      SET_STRING_ELT(names, i, mkChar( (char*) h_node_get_name(sensitivity_set[i])));
+      error_code = h_error_code();
+      if(error_code != h_error_none) {
+        UNPROTECT(3);
+        RHugin_handle_error_code(error_code);
+      }
+    }
+    setAttrib(ret, R_NamesSymbol, names);
+    
+    UNPROTECT(3);
+  }
+  
+  return ret;
+}
+
+
+/* 9.11 Most probable configurations */
+
+SEXP RHugin_domain_find_map_configurations(SEXP Sdomain, SEXP Snodes, SEXP Spmin)
+{
+  h_node_t *nodes = NULL;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  h_double_t pmin = 0.0;
+  int i = 0, n_nodes = LENGTH(Snodes);
+
+  PROTECT(Spmin = AS_NUMERIC(Spmin));
+  pmin = (h_double_t) REAL(Spmin)[0];
+  UNPROTECT(1);
+
+  nodes = (h_node_t*) R_alloc(n_nodes + 1, sizeof(h_node_t));
+
+  for(i = 0; i < n_nodes; i++)
+    nodes[i] = nodePointerFromSEXP(VECTOR_ELT(Snodes, i));
+  nodes[n_nodes] = NULL;
+
+  RHugin_handle_status_code(h_domain_find_map_configurations(domain, nodes, pmin));
+
+  return R_NilValue;
+}
+
+
+SEXP RHugin_domain_get_number_of_map_configurations(SEXP Sdomain)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  
+  PROTECT(ret = allocVector(INTSXP, 1));
+  INTEGER(ret)[0] = (int) h_domain_get_number_of_map_configurations(domain);
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_map_configuration(SEXP Sdomain, SEXP Sindex, SEXP Sn_nodes)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  size_t *configuration = NULL;
+  int i = 0, n_nodes = -1, *p_ret = NULL;
+  size_t index = 0;
+
+  PROTECT(Sindex = AS_INTEGER(Sindex));
+  PROTECT(Sn_nodes = AS_INTEGER(Sn_nodes));
+  index = (size_t) INTEGER(Sindex)[0];
+  n_nodes = INTEGER(Sn_nodes)[0];
+  UNPROTECT(2);
+
+  configuration = h_domain_get_map_configuration(domain, index);
+
+  if(configuration) {
+    PROTECT(ret = allocVector(INTSXP, n_nodes));
+    p_ret = INTEGER(ret);
+
+    for(i = 0; i < n_nodes; i++)
+      p_ret[i] = (int) configuration[i];
+
+    UNPROTECT(1);
+  }
+
+  RHugin_handle_error();
+
+  return ret;
+}
+
+
+SEXP RHugin_domain_get_probability_of_map_configuration(SEXP Sdomain, SEXP Sindex)
+{
+  SEXP ret = R_NilValue;
+  h_domain_t domain = domainPointerFromSEXP(Sdomain);
+  size_t index = 0;
+
+  PROTECT(Sindex = AS_INTEGER(Sindex));
+  index = (size_t) INTEGER(Sindex)[0];
+  UNPROTECT(1);
+
+  PROTECT(ret = allocVector(REALSXP, 1));
+  REAL(ret)[0] = h_domain_get_probability_of_map_configuration(domain, index);
+  UNPROTECT(1);
+
+  RHugin_handle_error();
+
+  return ret;
+}
+
+
+/* 10.1 Experience counts and fading factors */
 
 SEXP RHugin_node_get_experience_table(SEXP Snode)
 {
@@ -3221,7 +3645,7 @@ SEXP RHugin_node_has_fading_table(SEXP Snode)
 }
 
 
-/* Section 10.2 Updating tables */
+/* 10.2 Updating tables */
 
 SEXP RHugin_domain_adapt(SEXP Sdomain)
 {
@@ -3233,7 +3657,7 @@ SEXP RHugin_domain_adapt(SEXP Sdomain)
 }
 
 
-/* Section 11.1 Data */
+/* 11.1 Data */
 
 SEXP RHugin_domain_set_number_of_cases(SEXP Sdomain, SEXP Scount)
 {
@@ -3511,7 +3935,7 @@ SEXP RHugin_domain_enter_case(SEXP Sdomain, SEXP Scase_index)
 }
 
 
-/* Section 11.2 Scoring of graphical models */
+/* 11.2 Scoring of graphical models */
 
 SEXP RHugin_domain_get_log_likelihood(SEXP Sdomain)
 {
@@ -3558,7 +3982,7 @@ SEXP RHugin_domain_get_BIC(SEXP Sdomain)
 }
 
 
-/* Section 11.3 Data files */
+/* 11.3 Data files */
 
 SEXP RHugin_domain_parse_cases(SEXP Sdomain, SEXP Sfile_name)
 {
@@ -3625,7 +4049,7 @@ SEXP RHugin_domain_save_cases(SEXP Sdomain, SEXP Sfile_name, SEXP Snodes,
 }
 
 
-/* Section 11.4 Learning network structure */
+/* 11.4 Learning network structure */
 
 SEXP RHugin_domain_learn_structure(SEXP Sdomain)
 {
@@ -3667,7 +4091,7 @@ SEXP RHugin_domain_get_significance_level(SEXP Sdomain)
 }
 
 
-/* Section 11.5 Domain knowledge */
+/* 11.5 Domain knowledge */
 
 SEXP RHugin_node_set_edge_constraint(SEXP Sa, SEXP Sb, SEXP Sconstraint)
 {
@@ -3754,7 +4178,7 @@ SEXP RHugin_node_get_edge_constraint(SEXP Sa, SEXP Sb)
 }
 
 
-/* Section 11.6 Learning conditional probability tables */
+/* 11.6 Learning conditional probability tables */
 
 SEXP RHugin_domain_learn_tables(SEXP Sdomain)
 {
@@ -3826,17 +4250,10 @@ SEXP RHugin_domain_get_max_number_of_em_iterations(SEXP Sdomain)
 }
 
 
-SEXP RHugin_domain_learn_class_tables(SEXP Sdomain)
-{
-  h_domain_t domain = domainPointerFromSEXP(Sdomain);
-
-  RHugin_handle_status_code(h_domain_learn_class_tables(domain));
-
-  return R_NilValue;
-}
+// SEXP RHugin_domain_learn_class_tables(SEXP Sdomain);
 
 
-/* Section 12.8 parsing NET files */
+/* 12.8 parsing NET files */
 
 SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 {
@@ -3860,6 +4277,9 @@ SEXP RHugin_net_parse_domain(SEXP Sfile_name)
 }
 
 
+// SEXP RHugin_net_parse_classes(SEXP Sfile_name);
+
+
 SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 {
   h_status_t status = 0;
@@ -3875,7 +4295,48 @@ SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name)
 }
 
 
-/* Section 13.2 the position of a node */
+/* 12.9 Saving class collections, classes, and domains as NET files */
+
+// SEXP RHugin_cc_save_as_net(SEXP Scc, SEXP Sfile_name);
+// SEXP RHugin_class_save_as_net(SEXP Sclass, SEXP Sfile_name);
+// SEXP RHugin_domain_save_as_net(SEXP Sdomain, SEXP Sfile_name);
+// SEXP RHugin_class_get_file_name(SEXP Sclass);
+// SEXP RHugin_domain_get_file_name(SEXP Sdomain);
+
+
+/* 13.1 The label of a node */
+
+SEXP RHugin_node_set_label(SEXP Snode, SEXP Slabel)
+{
+  h_status_t status = 0;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(Slabel = AS_CHARACTER(Slabel));
+  status = h_node_set_label(node, (h_string_t) CHAR(asChar(Slabel)));
+  UNPROTECT(1);
+  
+  RHugin_handle_status_code(status);
+  
+  return R_NilValue;
+}
+
+
+SEXP RHugin_node_get_label(SEXP Snode)
+{
+  SEXP ret = R_NilValue;
+  h_node_t node = nodePointerFromSEXP(VECTOR_ELT(Snode, 0));
+  
+  PROTECT(ret = allocVector(STRSXP, 1));
+  SET_STRING_ELT(ret, 0, mkChar( (char*) h_node_get_label(node)));
+  UNPROTECT(1);
+  
+  RHugin_handle_error();
+  
+  return ret;
+}
+
+
+/*  13.2 The position of a node */
 
 SEXP RHugin_node_set_position(SEXP Snode, SEXP Sposition)
 {
@@ -3910,7 +4371,7 @@ SEXP RHugin_node_get_position(SEXP Snode)
 }
 
 
-/* Section 13.3 the size of a node */
+/* 13.3 The size of a node */
 
 SEXP RHugin_domain_set_node_size(SEXP Sdomain, SEXP Ssize)
 {
@@ -3943,5 +4404,9 @@ SEXP RHugin_domain_get_node_size(SEXP Sdomain)
 
   return ret;
 }
+
+
+// SEXP RHugin_class_set_node_size(SEXP Sclass, SEXP Ssize);
+// SEXP RHugin_class_get_node_size(SEXP Sclass);
 
 

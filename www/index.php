@@ -68,15 +68,7 @@ If you do not have Hugin installed in the default location, you will need to set
 <h4>Dependencies</h4>
 
 <p>
-The RHugin package depends on the <code>gRbase</code> and <code>graph</code> packages.  In R, run the command
-</p>
-
-<pre>
-  install.packages("gRbase")
-</pre>
-
-<p>
-to install the <code>gRbase</code> package from CRAN and then the commands
+The RHugin package depends on the <code>graph</code> and <code>gRbase</code> packages.  In R, run the commands
 </p>
 
 <pre>
@@ -85,7 +77,15 @@ to install the <code>gRbase</code> package from CRAN and then the commands
 </pre>
 
 <p>
-to install the <code>graph</code> package from Bioconductor.
+to install the <code>graph</code> package from Bioconductor and the command
+</p>
+
+<pre>
+  install.packages("gRbase")
+</pre>
+
+<p>
+to install the <code>gRbase</code> package from CRAN.  The <code>graph</code> package should be installed first since it is also needed by the <code>gRbase</code> package and is not available from CRAN.
 </p>
 
 
@@ -126,7 +126,7 @@ Binary packages for Windows.
 <li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (Hugin 7.3)</li>
 <li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (Hugin 7.4, R 2.12.2, Windows XP)</li>
 <li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
-<li> <a href="binary/Windows/RHugin_7.5.zip">RHugin_7.5.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.5-1.zip">RHugin_7.5-1.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
 </ul>
 
 <p>

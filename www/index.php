@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2011-11-30: Thanks to Rgraphviz 1.32.0, utility nodes are now drawn as diamonds.</li>
 <li>2011-06-15: RHugin 7.5 released.</li>
 <li>2010-11-13: RHugin 7.4 released.</li>
 <li>2010-04-12: RHugin 7.3-1 released. From now on the package version will match the Hugin release.</li>
@@ -127,6 +128,7 @@ Binary packages for Windows.
 <li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (Hugin 7.4, R 2.12.2, Windows XP)</li>
 <li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-1.zip">RHugin_7.5-1.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.5-6.zip">RHugin_7.5-6.zip</a> (Hugin 7.5 (32-bit), R 2.14.0 (32-bit))</li>
 </ul>
 
 <p>
@@ -148,7 +150,7 @@ The Rgraphviz package is quite sensitive to the specific versions of Graphviz an
 <ol>
   <li>Download and install Graphviz 2.28.0.<br><ul><li><a href="http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi">http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.28.0.msi</a></li></ul></li><br>
   <li>Add the full path to the Graphviz bin folder (e.g., <code>C:\Program Files (x86)\Graphviz 2.28\bin</code>) to the Windows <i>Path</i> Environment Variable.</li><br>
-  <li>Download the <a href="binary/Windows/Rgraphviz_1.30.1.zip">Rgraphviz</a> binary package and install it using the "Install package(s) from local zip files..." item from the R Packages menu.</li>
+  <li>Download the <a href="binary/Windows/Rgraphviz_1.32.0.zip">Rgraphviz</a> binary package and install it using the "Install package(s) from local zip files..." item from the R Packages menu.</li>
 </ol>
 </p>
 

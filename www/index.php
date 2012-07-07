@@ -76,10 +76,11 @@ The RHugin package depends on the <code>graph</code> and <code>gRbase</code> pac
 <pre>
   source(&quot;http://bioconductor.org/biocLite.R&quot;)
   biocLite(&quot;graph&quot;)
+  biocLite(&quot;RBGL&quot;)
 </pre>
 
 <p>
-to install the <code>graph</code> package from Bioconductor and the command
+to install the <code>graph</code> and <code>RBGL</code> packages from Bioconductor and the command
 </p>
 
 <pre>
@@ -99,7 +100,7 @@ Linux users can install the package using the <code>install.packages</code> func
 
 <pre>
   Sys.setenv(HUGINHOME = "/usr/local/hugin")
-  install.packages("RHugin", repos = "http://R-Forge.R-project.org")
+  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org")
 </pre>
 
 <h4>Installing the RHugin Package on Mac OS X</h4>
@@ -109,8 +110,8 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </p>
 
 <pre>
-  Sys.setenv(HUGINHOME = "/Applications/HDE7.5-lite")
-  install.packages("RHugin", repos = "http://R-Forge.R-project.org", type = "source")
+  Sys.setenv(HUGINHOME = "/Applications/HDE7.6-lite")
+  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source")
 </pre>
 
 <p>

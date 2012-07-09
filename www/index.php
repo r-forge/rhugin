@@ -131,7 +131,7 @@ Binary packages for Windows.
 <li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-1.zip">RHugin_7.5-1.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-6.zip">RHugin_7.5-6.zip</a> (Hugin 7.5 (32-bit), R 2.14.0 (32-bit))</li>
-<li> <a href="binary/Windows/RHugin_7.6-1.zip">RHugin_7.6-1.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
 </ul>
 
 <p>

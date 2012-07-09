@@ -111,7 +111,7 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 
 <pre>
   Sys.setenv(HUGINHOME = "/Applications/HDE7.6-lite")
-  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source")
+  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source", INSTALL_opts = "--no-multiarch")
 </pre>
 
 <p>

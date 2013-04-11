@@ -46,48 +46,35 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2013-04-10: RHugin 7.7 released.</li>
 <li>2012-10-30: The Rgraphviz package is now much easier to install.</li>
 <li>2012-03-13: RHugin 7.6 released.</li>
 <li>2011-11-30: Thanks to Rgraphviz 1.32.0, utility nodes are now drawn as diamonds.</li>
 <li>2011-06-15: RHugin 7.5 released.</li>
 <li>2010-11-13: RHugin 7.4 released.</li>
-<li>2010-04-12: RHugin 7.3-1 released. From now on the package version will match the Hugin release.</li>
-<li>2010-03-23: RHugin 0.9-1 released.  All the planned features for the RHugin package have been implemented.</li>
-<li>2010-02-23: RHugin 0.8-3 adds support for structure learning and CPT learning. This release requires Hugin 7.2, R 2.10.1 and gRbase 1.3.3. Note that RHugin now depends on gRbase rather than gRain.</li>
 </ul>
 
 <h2>Installation</h2>
 
 <p>
-If you do not have Hugin installed in the default location, you will need to set the <code>HUGINHOME</code> environment variable in order to use the RHugin package (see the <a href="http://www.hugin.com/developer/documentation/api-manuals">Hugin API Reference Manual</a>).  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions below.
+If you do not have Hugin installed in the default location you will need to set the <code>HUGINHOME</code> environment variable before using the RHugin package.  Also, you will need to modify the <code>HUGINHOME</code> variable in the installation instructions below.
 </p>
 
 
 <h4>Dependencies</h4>
 
 <p>
-The RHugin package depends on the <code>graph</code> and <code>gRbase</code> packages.  In R, run the commands
+RHugin has dependencies on the Bioconductor packages <code>graph</code> and <code>Rgraphviz</code>. Run the commands
 </p>
 
 <pre>
   source(&quot;http://bioconductor.org/biocLite.R&quot;)
-  biocLite(&quot;graph&quot;)
-  biocLite(&quot;Rgraphviz&quot;)
-  biocLite(&quot;RBGL&quot;)
+  biocLite(c(&quot;graph&quot;, &quot;Rgraphviz&quot;))
 </pre>
 
 <p>
-to install the <code>graph</code> and <code>RBGL</code> packages from Bioconductor and the command
+to install them.
 </p>
-
-<pre>
-  install.packages("gRbase")
-</pre>
-
-<p>
-to install the <code>gRbase</code> package from CRAN.  The <code>graph</code> package should be installed first since it is also needed by the <code>gRbase</code> package and is not available from CRAN.
-</p>
-
 
 <h4>Installing the RHugin Package on Linux</h4>
 
@@ -107,28 +94,25 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </p>
 
 <pre>
-  Sys.setenv(HUGINHOME = "/Applications/HDE7.6-lite")
-  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source", INSTALL_opts = "--no-multiarch")
+  Sys.setenv(HUGINHOME = "/Applications/HDE7.7-x64-lite")
+  install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source")
 </pre>
 
 <p>
-As of version 0.7-12, the RHugin package dynamically links to the Hugin Decision Engine hence Hugin 7.2 or later is required.
+Note for Mac OS X: since R 3.0.0 is now 64 bit only, RHugin will only work with a 64 bit version of the Hugin Decision Engine.
 </p>
 
 <h4>Installing the RHugin Package on Microsoft Windows</h4>
 
 <p>
-Binary packages for Windows.
+Binary packages are provided for Windows.
 </p>
 
 <ul>
-<li> <a href="binary/Windows/RHugin_0.9-1.zip">RHugin_0.9-1.zip</a> (Hugin 7.2)</li>
-<li> <a href="binary/Windows/RHugin_7.3-1.zip">RHugin_7.3-1.zip</a> (Hugin 7.3)</li>
-<li> <a href="binary/Windows/RHugin_7.4.zip">RHugin_7.4.zip</a> (Hugin 7.4, R 2.12.2, Windows XP)</li>
-<li> <a href="binary/Windows/RHugin_7.4-1.zip">RHugin_7.4-1.zip</a> (Hugin 7.4 (32-bit), R 2.13.0 (32-bit), Windows 7 (64-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-1.zip">RHugin_7.5-1.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-6.zip">RHugin_7.5-6.zip</a> (Hugin 7.5 (32-bit), R 2.14.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.7-4.zip">RHugin_7.7-4.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
 </ul>
 
 <p>

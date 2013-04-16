@@ -1,6 +1,6 @@
 Package: RHugin
-Version: 7.7-4
-Date: 2013-04-10
+Version: 7.7-5
+Date: 2013-04-16
 Title: RHugin
 Author: Kjell Konis <kjell.konis@icloud.com>.
 Maintainer: Kjell Konis <kjell.konis@icloud.com>
@@ -16,4 +16,6 @@ Description: The RHugin package provides an R API for the Hugin Decision \
 License: LGPL-2.1
 URL: http://rhugin.r-forge.r-project.org
 OS_type: unix
-Packaged: 2013-04-10 19:18:10 UTC; kjell
+Packaged: 2013-04-16 17:08:47 UTC; kjell
+
+

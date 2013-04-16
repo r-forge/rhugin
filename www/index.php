@@ -79,7 +79,7 @@ to install them.
 <h4>Installing the RHugin Package on Linux</h4>
 
 <p>
-Linux users can install the package using the <code>install.packages</code> function in R.
+Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder.
 </p>
 
 <pre>
@@ -90,7 +90,7 @@ Linux users can install the package using the <code>install.packages</code> func
 <h4>Installing the RHugin Package on Mac OS X</h4>
 
 <p>
-Mac OS X users can install the package using the <code>install.packages</code> function as well. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will give the correct path.  The following commands install the package for Hugin Lite.
+Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will give the correct path.  The following commands install the package for Hugin Lite.
 </p>
 
 <pre>
@@ -99,7 +99,7 @@ Mac OS X users can install the package using the <code>install.packages</code> f
 </pre>
 
 <p>
-Note for Mac OS X: since R 3.0.0 is now 64 bit only, RHugin will only work with a 64 bit version of the Hugin Decision Engine.
+Note for Mac OS X: R 3.0.0 is now 64 bit only so RHugin will only work with a 64 bit version of the Hugin Decision Engine.
 </p>
 
 <h4>Installing the RHugin Package on Microsoft Windows</h4>
@@ -112,7 +112,7 @@ Binary packages are provided for Windows.
 <li> <a href="binary/Windows/RHugin_7.5-1.zip">RHugin_7.5-1.zip</a> (Hugin 7.5 (32-bit), R 2.13.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.5-6.zip">RHugin_7.5-6.zip</a> (Hugin 7.5 (32-bit), R 2.14.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
-<li> <a href="binary/Windows/RHugin_7.7-4.zip">RHugin_7.7-4.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.7-5.zip">RHugin_7.7-5.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
 </ul>
 
 <p>

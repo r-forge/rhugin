@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2013-07-23: RHugin 7.8 released.</li>
 <li>2013-04-10: RHugin 7.7 released.</li>
 <li>2012-10-30: The Rgraphviz package is now much easier to install.</li>
 <li>2012-03-13: RHugin 7.6 released.</li>
@@ -90,11 +91,11 @@ Install RHugin using the <code>install.packages</code> function in R. The <code>
 <h4>Installing the RHugin Package on Mac OS X</h4>
 
 <p>
-Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will give the correct path.  The following commands install the package for Hugin Lite.
+Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will autocomplete the correct path.  The following commands install the package for Hugin Lite.
 </p>
 
 <pre>
-  Sys.setenv(HUGINHOME = "/Applications/HDE7.7-x64-lite")
+  Sys.setenv(HUGINHOME = "/Applications/HDE7.8-x64-lite")
   install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source")
 </pre>
 
@@ -113,6 +114,7 @@ Binary packages are provided for Windows.
 <li> <a href="binary/Windows/RHugin_7.5-6.zip">RHugin_7.5-6.zip</a> (Hugin 7.5 (32-bit), R 2.14.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.7-5.zip">RHugin_7.7-5.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.8.zip">RHugin_7.8.zip</a> (Hugin 7.8 (32-bit), R 3.0.x (32-bit))</li>
 </ul>
 
 <p>

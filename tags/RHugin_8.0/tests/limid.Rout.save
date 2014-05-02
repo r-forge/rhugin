@@ -1,0 +1,35 @@
+
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(RHugin)
+Loading required package: graph
+> demo("limid", echo = FALSE)
+> 
+> compile(limid)
+> set.finding(limid, "Loses", "yes")
+> propagate(limid)
+> 
+> get.utility(limid, "Treat")
+   treat      not 
+10234.39 11514.01 
+> 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.727   0.036   0.747 

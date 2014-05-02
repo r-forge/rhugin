@@ -33,7 +33,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <h1>The RHugin Package Homepage</h1>
 
-The Hugin Decision Engine (HDE) is commercial software produced by <a href="http://www.hugin.com">HUGIN EXPERT A/S</a> for building and making inference from Bayesian belief networks.  The RHugin package provides a suite of functions allowing the HDE to be controlled from within the R environment for statistical computing.  The RHugin package can thus be used to build Bayesian belief networks, enter and propagate evidence, and to retrieve beliefs.  Additionally, the RHugin package can read and write hkb and NET files, making it easy to work simultaneously with both the RHugin package and the Hugin GUI.  A licensed copy of the HDE (or the trial version) is required for the RHugin package to function, hence the target audience for the package is Hugin users who would like to take advantage of the statistical and programatic capabilities of R.
+The Hugin Decision Engine (HDE) is commercial software developed by <a href="http://www.hugin.com">HUGIN EXPERT A/S</a> for building and making inference from Bayesian belief networks.  The RHugin package provides a suite of functions allowing the HDE to be controlled from within R.  The RHugin package can thus be used to build Bayesian belief networks, enter and propagate evidence, and to retrieve beliefs.  Additionally, the RHugin package can read and write hkb and NET files, making it easy to work simultaneously with both the RHugin package and the Hugin GUI.  A licensed copy of the HDE (or the trial version) is required for the RHugin package to function, hence the target audience for the package is Hugin users who would like to take advantage of the statistical and programatic capabilities of R.
 
 <br><br>
 
@@ -46,6 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
+<li>2014-05-02: RHugin 8.0 released; 32/64-bit binary packages are provided for Windows 7 or newer.</li>
 <li>2013-07-23: RHugin 7.8 released.</li>
 <li>2013-04-10: RHugin 7.7 released.</li>
 <li>2012-10-30: The Rgraphviz package is now much easier to install.</li>
@@ -91,11 +92,15 @@ Install RHugin using the <code>install.packages</code> function in R. The <code>
 <h4>Installing the RHugin Package on Mac OS X</h4>
 
 <p>
-Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will autocomplete the correct path.  The following commands install the package for Hugin Lite.
+The RHugin package needs to be installed from source on Mac OS X and you will need to have the <i>Command Line Tools</i> installed on your computer in order to do this.  Instructions for installing the Command Line Tools on Mavericks (Mac OS X 10.9) can be found <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">here</a>.  These instructions may work on older versions of Mac OS X.  If they don't, you will need to install and launch Xcode.  Then, from the <i>Xcode</i> menu item, choose <i>Preferences</i> and select the <i>Downloads</i> tab.  There should be an option to install the Command Line Tools.
+</p>
+
+<p>
+Install RHugin using the <code>install.packages</code> function in R. The <code>HUGINHOME</code> environment variable must be set to the full path of the Hugin Decision Engine folder. In most cases typing <code>Sys.setenv(HUGINHOME = "/Applications/HDE</code> then pressing <code>tab</code> will autocomplete the correct path.  The following commands, for example, install the package for Hugin Lite.
 </p>
 
 <pre>
-  Sys.setenv(HUGINHOME = "/Applications/HDE7.8-x64-lite")
+  Sys.setenv(HUGINHOME = "/Applications/HDE8.0-x64-lite/")
   install.packages("RHugin", repos = "http://rhugin.r-forge.r-project.org", type = "source")
 </pre>
 
@@ -115,6 +120,8 @@ Binary packages are provided for Windows.
 <li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.7-5.zip">RHugin_7.7-5.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.8.zip">RHugin_7.8.zip</a> (Hugin 7.8 (32-bit), R 3.0.x (32-bit))</li>
+<li> <a href="binary/Windows/RHugin_7.8-3.zip">RHugin_7.8-3.zip</a> (Hugin 7.8, R 3.0.2 (32/64-bit), Windows 7+)</li>
+<li> <a href="binary/Windows/RHugin_8.0.zip">RHugin_8.0.zip</a> (Hugin 8.0, R 3.1.0 (32/64-bit), Windows 7+)</li>
 </ul>
 
 <p>

@@ -46,7 +46,7 @@ Code and development statistics for the RHugin project are available on the <a h
 <h2>News</h2>
 
 <ul>
-<li>2014-05-02: RHugin 8.0 released; 32/64-bit binary packages are provided for Windows 7 or newer.</li>
+<li>2014-05-02: RHugin 8.0 released; 32/64-bit binary packages are provided for Windows 7.</li>
 <li>2013-07-23: RHugin 7.8 released.</li>
 <li>2013-04-10: RHugin 7.7 released.</li>
 <li>2012-10-30: The Rgraphviz package is now much easier to install.</li>

@@ -120,8 +120,8 @@ Binary packages are provided for Windows.
 <li> <a href="binary/Windows/RHugin_7.6-2.zip">RHugin_7.6-2.zip</a> (Hugin 7.6 (32-bit), R 2.14.2 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.7-5.zip">RHugin_7.7-5.zip</a> (Hugin 7.7 (32-bit), R 3.0.0 (32-bit))</li>
 <li> <a href="binary/Windows/RHugin_7.8.zip">RHugin_7.8.zip</a> (Hugin 7.8 (32-bit), R 3.0.x (32-bit))</li>
-<li> <a href="binary/Windows/RHugin_7.8-3.zip">RHugin_7.8-3.zip</a> (Hugin 7.8, R 3.0.2 (32/64-bit), Windows 7+)</li>
-<li> <a href="binary/Windows/RHugin_8.0.zip">RHugin_8.0.zip</a> (Hugin 8.0, R 3.1.0 (32/64-bit), Windows 7+)</li>
+<li> <a href="binary/Windows/RHugin_7.8-3.zip">RHugin_7.8-3.zip</a> (Hugin 7.8, R 3.1.0 (32/64-bit))</li>
+<li> <a href="binary/Windows/RHugin_8.0.zip">RHugin_8.0.zip</a> (Hugin 8.0, R 3.1.0 (32/64-bit))</li>
 </ul>
 
 <p>

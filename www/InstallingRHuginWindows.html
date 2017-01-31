@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kjell Konis" />
 
-<meta name="date" content="2017-01-27" />
+<meta name="date" content="2017-01-31" />
 
 <title>Installing RHugin on Microsoft Windows</title>
 
@@ -119,70 +119,69 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Installing RHugin on Microsoft Windows</h1>
 <h4 class="author"><em>Kjell Konis</em></h4>
-<h4 class="date"><em>January 27, 2017</em></h4>
+<h4 class="date"><em>January 31, 2017</em></h4>
 
 </div>
 
 
 <hr />
-<p>Read the <em>Preliminaries</em> section even if you already have R, Rtools, and the Hugin Decision Engine installed. You probably will need to install the <em>Microsoft Visual C++ Redistributable Package (x64)</em>. These instructions have only been tested with 64 bit versions of R and the HDE running on Windows 10 (64 bit).</p>
+<p>Read the <em>Preliminaries</em> section even if you already have R, Rtools, and the Hugin Decision Engine installed. You probably will need to install the <em>Microsoft Visual C++ 2010 Redistributable Package (x64)</em>. These instructions have only been tested with 64 bit versions of R and the HDE running on Windows 10 (64 bit).</p>
 <hr />
-<div id="preliminaries" class="section level2">
-<h2>Preliminaries</h2>
+<div id="preliminaries" class="section level3">
+<h3>Preliminaries</h3>
 <p>The RHugin package provides an R API for the Hugin Decision Engine (HDE): both the HDE and R must be installed on the computer in order for the RHugin package to function.</p>
-<div id="install-hugin-and-the-hugin-decision-engine-hde" class="section level3">
-<h3>Install HUGIN and the HUGIN Decision Engine (HDE)</h3>
+<div id="install-hugin-and-the-hugin-decision-engine-hde" class="section level4">
+<h4>Install HUGIN and the HUGIN Decision Engine (HDE)</h4>
 <p>The Hugin Decision Engine is commercial software available from HUGIN EXPERT.</p>
 <blockquote>
 <p><a href="http://www.hugin.com" class="uri">http://www.hugin.com</a></p>
 </blockquote>
-<p>The products <em>HUGIN Developer</em> (commercial use) and <em>HUGIN Researcher</em> (academic use) include the Hugin Decision Engine. The HDE is also included with the free demo <em>HUGIN Lite</em> (the only permitted use of the free demo is to evaluate the HUGIN software).</p>
+<p>The products <em>HUGIN Developer</em> (commercial use) and <em>HUGIN Researcher</em> (academic use) include the Hugin Decision Engine. The HDE is also included with the free demo <em>HUGIN Lite</em> (the only permitted use of the free demo is to evaluate HUGIN).</p>
 </div>
-<div id="install-the-microsoft-visual-c-redistributable-package-x64" class="section level3">
-<h3>Install the Microsoft Visual C++ Redistributable Package (x64)</h3>
-<p>The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires runtime components for this compiler to be installed. These runtime components are provided in the package <em>Microsoft Visual C++ Redistributable Package (x64)</em> that should be downloaded directly from Microsoft.</p>
+<div id="install-the-microsoft-visual-c-2010-redistributable-package-x64" class="section level4">
+<h4>Install the Microsoft Visual C++ 2010 Redistributable Package (x64)</h4>
+<p>The dll that RHugin links to in the HDE was created with Microsoft Visual C++ 2010 and requires runtime components for this compiler to be installed. These runtime components are provided in the package <em>Microsoft Visual C++ 2010 Redistributable Package (x64)</em> that should be downloaded directly from Microsoft.</p>
 <blockquote>
 <p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=14632" class="uri">https://www.microsoft.com/en-us/download/details.aspx?id=14632</a></p>
 </blockquote>
-<p>If installation fails, the most likely reason is that you already have these components installed (some manufacturers, e.g., Lenovo, preinstall these packages; other don’t). Read the message carefully.</p>
+<p>If installation fails, the most likely reason is that you already have these components installed (some manufacturers, e.g., Lenovo, preinstall these packages; others don’t). Read the message carefully.</p>
 </div>
-<div id="install-r" class="section level3">
-<h3>Install R</h3>
+<div id="install-r" class="section level4">
+<h4>Install R</h4>
 <p>R is available from the CRAN repository.</p>
 <blockquote>
 <p><a href="https://cloud.r-project.org">https://cloud.r-project.org/</a></p>
 </blockquote>
 <p>The installer for the most recent version of R can be found by following <em>Download R for Windows &gt; base</em>.</p>
 </div>
-<div id="install-rtools" class="section level3">
-<h3>Install Rtools</h3>
+<div id="install-rtools" class="section level4">
+<h4>Install Rtools</h4>
 <p>Since RHugin is distributed as a source package you will also need to install Rtools (the compilers, etc. used to build R). The Rtools installer can be found by following <em>Download R for Windows &gt; Rtools</em>. The most recent version is at the top of the list.</p>
 <p>Once these four pieces of software are installed, start R and proceed to the next section.</p>
 <hr />
 </div>
 </div>
-<div id="rhugin-package-depedencies" class="section level2">
-<h2>RHugin Package Depedencies</h2>
+<div id="rhugin-package-depedencies" class="section level3">
+<h3>RHugin Package Depedencies</h3>
 <p>The RHugin package has dependencies on the <code>graph</code> and <code>Rgraphviz</code> packages. These packages are part of Bioconductor and can be installed by running the following two R commands.</p>
 <pre class="r"><code>source(&quot;https://bioconductor.org/biocLite.R&quot;)
 biocLite(c(&quot;graph&quot;, &quot;Rgraphviz&quot;))</code></pre>
 <hr />
 </div>
-<div id="install-the-rhugin-package" class="section level2">
-<h2>Install the RHugin Package</h2>
+<div id="install-the-rhugin-package" class="section level3">
+<h3>Install the RHugin Package</h3>
 <p>Finally, install the <code>RHugin</code> package from RHugin’s R-Forge repository with the following R command.</p>
 <pre class="r"><code>install.packages(&quot;RHugin&quot;, repos = &quot;http://rhugin.r-forge.r-project.org&quot;,
                  type = &quot;source&quot;, INSTALL_opts=&quot;--no-multiarch&quot;)</code></pre>
 <hr />
 </div>
-<div id="quick-test" class="section level2">
-<h2>Quick Test</h2>
+<div id="quick-test" class="section level3">
+<h3>Quick Test</h3>
 <p>To check that everything went as planned run the following code to plot one of the example networks provided by HUGIN.</p>
 <pre class="r"><code>library(RHugin)</code></pre>
-<pre><code>## 
-## Loading RHugin package...
-##   RHugin package version: 8.4 
-##   Hugin Version: Hugin Lite 8.4 (x64) 
+<pre><code>## Loading RHugin package...
+##   RHugin package version: 8.4
+##   Hugin Version: Hugin Lite 8.4 (x64)
 ##   Hugin Location: C:/Program Files/Hugin Expert/Hugin Lite 8.4 (x64)</code></pre>
 <pre class="r"><code>demo(&quot;asia&quot;, echo = FALSE)
 plot(asia)</code></pre>

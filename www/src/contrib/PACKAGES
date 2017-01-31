@@ -1,6 +1,6 @@
 Package: RHugin
 Version: 8.4
-Imports: graph, Rgraphviz (>= 1.32.0), stats, tools
+Imports: graph, graphics, methods, Rgraphviz (>= 1.32.0), stats, utils
 Suggests: MASS
 License: LGPL-2.1
 NeedsCompilation: yes
